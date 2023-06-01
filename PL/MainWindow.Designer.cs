@@ -29,6 +29,10 @@ namespace PL
             this.StudGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudFacult = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeacherView = new System.Windows.Forms.DataGridView();
+            this.TeachNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeachInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeachPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeachFacult = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupView = new System.Windows.Forms.DataGridView();
             this.GroupNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -42,10 +46,7 @@ namespace PL
             this.FacultDean = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FacultCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SelectButt = new System.Windows.Forms.Button();
-            this.TeachNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeachInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeachPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TeachFacult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddButt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.StudView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TeacherView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GroupView)).BeginInit();
@@ -174,6 +175,34 @@ namespace PL
             this.TeacherView.TabIndex = 16;
             this.TeacherView.Visible = false;
             // 
+            // TeachNum
+            // 
+            this.TeachNum.HeaderText = "№";
+            this.TeachNum.Name = "TeachNum";
+            this.TeachNum.ReadOnly = true;
+            this.TeachNum.Width = 30;
+            // 
+            // TeachInfo
+            // 
+            this.TeachInfo.HeaderText = "П.І.Б.";
+            this.TeachInfo.Name = "TeachInfo";
+            this.TeachInfo.ReadOnly = true;
+            this.TeachInfo.Width = 220;
+            // 
+            // TeachPosition
+            // 
+            this.TeachPosition.HeaderText = "Посада";
+            this.TeachPosition.Name = "TeachPosition";
+            this.TeachPosition.ReadOnly = true;
+            this.TeachPosition.Width = 130;
+            // 
+            // TeachFacult
+            // 
+            this.TeachFacult.HeaderText = "Факультет";
+            this.TeachFacult.Name = "TeachFacult";
+            this.TeachFacult.ReadOnly = true;
+            this.TeachFacult.Width = 130;
+            // 
             // GroupView
             // 
             this.GroupView.AllowUserToAddRows = false;
@@ -294,39 +323,22 @@ namespace PL
             this.SelectButt.Text = "Обрати";
             this.SelectButt.UseVisualStyleBackColor = true;
             // 
-            // TeachNum
+            // AddButt
             // 
-            this.TeachNum.HeaderText = "№";
-            this.TeachNum.Name = "TeachNum";
-            this.TeachNum.ReadOnly = true;
-            this.TeachNum.Width = 30;
-            // 
-            // TeachInfo
-            // 
-            this.TeachInfo.HeaderText = "П.І.Б.";
-            this.TeachInfo.Name = "TeachInfo";
-            this.TeachInfo.ReadOnly = true;
-            this.TeachInfo.Width = 220;
-            // 
-            // TeachPosition
-            // 
-            this.TeachPosition.HeaderText = "Посада";
-            this.TeachPosition.Name = "TeachPosition";
-            this.TeachPosition.ReadOnly = true;
-            this.TeachPosition.Width = 130;
-            // 
-            // TeachFacult
-            // 
-            this.TeachFacult.HeaderText = "Факультет";
-            this.TeachFacult.Name = "TeachFacult";
-            this.TeachFacult.ReadOnly = true;
-            this.TeachFacult.Width = 130;
+            this.AddButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddButt.Location = new System.Drawing.Point(606, 95);
+            this.AddButt.Name = "AddButt";
+            this.AddButt.Size = new System.Drawing.Size(116, 59);
+            this.AddButt.TabIndex = 20;
+            this.AddButt.Text = "Додати викладача";
+            this.AddButt.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 411);
+            this.Controls.Add(this.AddButt);
             this.Controls.Add(this.SelectButt);
             this.Controls.Add(this.FacultView);
             this.Controls.Add(this.GroupView);
@@ -374,5 +386,6 @@ namespace PL
         private DataGridViewTextBoxColumn TeachInfo;
         private DataGridViewTextBoxColumn TeachPosition;
         private DataGridViewTextBoxColumn TeachFacult;
+        private Button AddButt;
     }
 }

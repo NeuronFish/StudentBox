@@ -16,11 +16,8 @@ namespace PL
             InitializeComponent();
             Father = father;
             _MainLogic = mainLogic;
-            Logic = new FacultRedLogic(facult, new List<DataGridView> { FacultStudView, FacultTeacherView, FacultGroupView },
-                new List<Button> { StudentsButt, TeacherButt, GroupButt }, new List<EventHandler> { });
-            string[] info = facult.GetDean().GetPersInfo();
-            NameBox.Text = facult.GetName();
-            DeanBox.Text = info[1] + " " + info[0] + " " + info[2];
+            Logic = new FacultRedLogic(facult, new List<TextBox> { NameBox, DeanBox }, new List<DataGridView> { FacultStudView, 
+                FacultTeacherView, FacultGroupView }, new List<Button> { StudentsButt, TeacherButt, GroupButt }, new List<EventHandler> { });
             StudentsButt_Click(null, null);
         }
         private void StudentsButt_Click(object sender, EventArgs e)

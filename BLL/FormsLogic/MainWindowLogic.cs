@@ -20,7 +20,8 @@ namespace BLL
             Teacher,
             Group,
             Facult,
-            SelectButt
+            SelectButt,
+            AddButt
         }
         private Type Selected;
 
@@ -54,6 +55,7 @@ namespace BLL
                     Convert.ToString(Students[index].GetGroup().GetCourse()), Students[index].GetGroup().GetName(),
                     Students[index].GetGroup().GetFacult().GetName() });
             }
+            Buttons[(int)Type.SelectButt].Click += EventHandlers[(int)Type.Student];
             Selected = Type.Student;
         }
         public void TeacherButt_Click()
@@ -94,8 +96,12 @@ namespace BLL
                 DataGridViews[(int)Type.Facult].Rows.Add(new string[] { (index + 1) + ".", Facults[index].GetName(), 
                     info[1] + " " + info[0] + " " + info[2], Convert.ToString(Facults[index].GetGroups().Count) });
             }
-            Buttons[(int)Type.SelectButt].Click += EventHandlers[0]; /////////
+            Buttons[(int)Type.SelectButt].Click += EventHandlers[1]; /////////
             Selected = Type.Facult;
+        }
+        public Student GetStudent(int index)
+        {
+            return Students[index - 1];
         }
         public Facult GetFacult(int index)
         {

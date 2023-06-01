@@ -7,6 +7,7 @@ namespace BLL
     public class FacultRedLogic : IFacultRedLogicable
     {
         private Facult _Facult;
+        private List<TextBox> TextBoxes;
         private List<DataGridView> DataGridViews;
         private List<Button> Buttons;
         private List<EventHandler> EventHandlers;
@@ -18,13 +19,17 @@ namespace BLL
         }
         private Type Selected;
 
-        public FacultRedLogic(Facult facult, List<DataGridView> dataGridViews, List<Button> buttons, 
+        public FacultRedLogic(Facult facult, List<TextBox> textBoxes, List<DataGridView> dataGridViews, List<Button> buttons, 
             List<EventHandler> eventHandlers)
         {
             _Facult = facult;
+            TextBoxes = textBoxes;
             DataGridViews = dataGridViews;
             Buttons = buttons;
             EventHandlers = eventHandlers;
+            string[] info = facult.GetDean().GetPersInfo();
+            textBoxes[0].Text = facult.GetName();
+            textBoxes[1].Text = info[1] + " " + info[0] + " " + info[2];
         }
         private void Clear()
         {
