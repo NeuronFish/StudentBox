@@ -1,0 +1,14 @@
+E:\MyTest\StudentBox\bin\Debug\StudentBox.exe.config
+E:\MyTest\StudentBox\bin\Debug\StudentBox.exe
+E:\MyTest\StudentBox\bin\Debug\StudentBox.pdb
+E:\MyTest\StudentBox\bin\Debug\PL.dll
+E:\MyTest\StudentBox\bin\Debug\BLL.dll
+E:\MyTest\StudentBox\bin\Debug\PL.pdb
+E:\MyTest\StudentBox\bin\Debug\BLL.pdb
+E:\MyTest\StudentBox\obj\Debug\StudentBox.csproj.AssemblyReference.cache
+E:\MyTest\StudentBox\obj\Debug\StudentBox.Properties.Resources.resources
+E:\MyTest\StudentBox\obj\Debug\StudentBox.csproj.GenerateResource.cache
+E:\MyTest\StudentBox\obj\Debug\StudentBox.csproj.CoreCompileInputs.cache
+E:\MyTest\StudentBox\obj\Debug\StudentBox.csproj.CopyComplete
+E:\MyTest\StudentBox\obj\Debug\StudentBox.exe
+E:\MyTest\StudentBox\obj\Debug\StudentBox.pdb

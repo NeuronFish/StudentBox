@@ -1,0 +1,12 @@
+E:\MyTest\StudentBox\PL\obj\Debug\PL.MainWindow.resources
+E:\MyTest\StudentBox\PL\obj\Debug\PL.csproj.GenerateResource.cache
+E:\MyTest\StudentBox\PL\obj\Debug\PL.csproj.CoreCompileInputs.cache
+E:\MyTest\StudentBox\PL\bin\Debug\PL.dll
+E:\MyTest\StudentBox\PL\bin\Debug\PL.pdb
+E:\MyTest\StudentBox\PL\obj\Debug\PL.dll
+E:\MyTest\StudentBox\PL\obj\Debug\PL.pdb
+E:\MyTest\StudentBox\PL\obj\Debug\PL.csproj.AssemblyReference.cache
+E:\MyTest\StudentBox\PL\bin\Debug\BLL.dll
+E:\MyTest\StudentBox\PL\bin\Debug\BLL.pdb
+E:\MyTest\StudentBox\PL\obj\Debug\PL.csproj.CopyComplete
+E:\MyTest\StudentBox\PL\obj\Debug\PL.FacultRed.resources
