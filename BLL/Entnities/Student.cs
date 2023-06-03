@@ -13,5 +13,9 @@ namespace BLL
         {
             return Group;
         }
+        public void ChangeGroup(Group group)
+        {
+            Group = group;
+        }
     }
 }

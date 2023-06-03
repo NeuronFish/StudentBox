@@ -30,23 +30,25 @@ namespace PL
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.EditNameButt = new System.Windows.Forms.Button();
+            this.EditSurnameButt = new System.Windows.Forms.Button();
             this.SurnameBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.EditNameButt = new System.Windows.Forms.Button();
             this.NameBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
+            this.EditPatronymicButt = new System.Windows.Forms.Button();
             this.PatronymicBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.FacultBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.ChangeGroupButt = new System.Windows.Forms.Button();
             this.CuratorBox = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.GroupComboBox = new System.Windows.Forms.ComboBox();
             this.CourseBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.DeleteButt = new System.Windows.Forms.Button();
+            this.ExitButt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -59,14 +61,15 @@ namespace PL
             this.label1.TabIndex = 5;
             this.label1.Text = "Прізвище:";
             // 
-            // EditNameButt
+            // EditSurnameButt
             // 
-            this.EditNameButt.Location = new System.Drawing.Point(376, 12);
-            this.EditNameButt.Name = "EditNameButt";
-            this.EditNameButt.Size = new System.Drawing.Size(50, 29);
-            this.EditNameButt.TabIndex = 4;
-            this.EditNameButt.Text = "button1";
-            this.EditNameButt.UseVisualStyleBackColor = true;
+            this.EditSurnameButt.Location = new System.Drawing.Point(376, 12);
+            this.EditSurnameButt.Name = "EditSurnameButt";
+            this.EditSurnameButt.Size = new System.Drawing.Size(50, 29);
+            this.EditSurnameButt.TabIndex = 4;
+            this.EditSurnameButt.Text = "button1";
+            this.EditSurnameButt.UseVisualStyleBackColor = true;
+            this.EditSurnameButt.Click += new System.EventHandler(this.EditSurnameButt_Click);
             // 
             // SurnameBox
             // 
@@ -87,14 +90,15 @@ namespace PL
             this.label2.TabIndex = 8;
             this.label2.Text = "Ім\'я:";
             // 
-            // button1
+            // EditNameButt
             // 
-            this.button1.Location = new System.Drawing.Point(733, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 29);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.EditNameButt.Location = new System.Drawing.Point(733, 12);
+            this.EditNameButt.Name = "EditNameButt";
+            this.EditNameButt.Size = new System.Drawing.Size(50, 29);
+            this.EditNameButt.TabIndex = 7;
+            this.EditNameButt.Text = "button1";
+            this.EditNameButt.UseVisualStyleBackColor = true;
+            this.EditNameButt.Click += new System.EventHandler(this.EditNameButt_Click);
             // 
             // NameBox
             // 
@@ -115,14 +119,15 @@ namespace PL
             this.label3.TabIndex = 11;
             this.label3.Text = "По-батькові:";
             // 
-            // button2
+            // EditPatronymicButt
             // 
-            this.button2.Location = new System.Drawing.Point(399, 47);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 29);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "button1";
-            this.button2.UseVisualStyleBackColor = true;
+            this.EditPatronymicButt.Location = new System.Drawing.Point(399, 47);
+            this.EditPatronymicButt.Name = "EditPatronymicButt";
+            this.EditPatronymicButt.Size = new System.Drawing.Size(50, 29);
+            this.EditPatronymicButt.TabIndex = 10;
+            this.EditPatronymicButt.Text = "button1";
+            this.EditPatronymicButt.UseVisualStyleBackColor = true;
+            this.EditPatronymicButt.Click += new System.EventHandler(this.EditPatronymicButt_Click);
             // 
             // PatronymicBox
             // 
@@ -162,14 +167,15 @@ namespace PL
             this.label5.TabIndex = 16;
             this.label5.Text = "Група:";
             // 
-            // button3
+            // ChangeGroupButt
             // 
-            this.button3.Location = new System.Drawing.Point(388, 141);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 29);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "button1";
-            this.button3.UseVisualStyleBackColor = true;
+            this.ChangeGroupButt.Location = new System.Drawing.Point(388, 141);
+            this.ChangeGroupButt.Name = "ChangeGroupButt";
+            this.ChangeGroupButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeGroupButt.TabIndex = 15;
+            this.ChangeGroupButt.Text = "button1";
+            this.ChangeGroupButt.UseVisualStyleBackColor = true;
+            this.ChangeGroupButt.Click += new System.EventHandler(this.ChangeGroupButt_Click);
             // 
             // CuratorBox
             // 
@@ -199,6 +205,7 @@ namespace PL
             this.GroupComboBox.Name = "GroupComboBox";
             this.GroupComboBox.Size = new System.Drawing.Size(254, 32);
             this.GroupComboBox.TabIndex = 19;
+            this.GroupComboBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GroupComboBox_KeyDown);
             // 
             // CourseBox
             // 
@@ -219,31 +226,56 @@ namespace PL
             this.label7.TabIndex = 20;
             this.label7.Text = "Курс:";
             // 
+            // DeleteButt
+            // 
+            this.DeleteButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DeleteButt.Location = new System.Drawing.Point(560, 352);
+            this.DeleteButt.Name = "DeleteButt";
+            this.DeleteButt.Size = new System.Drawing.Size(223, 38);
+            this.DeleteButt.TabIndex = 22;
+            this.DeleteButt.Text = "Видалити студента";
+            this.DeleteButt.UseVisualStyleBackColor = true;
+            this.DeleteButt.Click += new System.EventHandler(this.DeleteButt_Click);
+            // 
+            // ExitButt
+            // 
+            this.ExitButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ExitButt.Location = new System.Drawing.Point(15, 352);
+            this.ExitButt.Name = "ExitButt";
+            this.ExitButt.Size = new System.Drawing.Size(55, 38);
+            this.ExitButt.TabIndex = 23;
+            this.ExitButt.Text = "<";
+            this.ExitButt.UseVisualStyleBackColor = true;
+            this.ExitButt.Click += new System.EventHandler(this.ExitButt_Click);
+            // 
             // StudRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.ExitButt);
+            this.Controls.Add(this.DeleteButt);
             this.Controls.Add(this.CourseBox);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.GroupComboBox);
             this.Controls.Add(this.CuratorBox);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.ChangeGroupButt);
             this.Controls.Add(this.FacultBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.EditPatronymicButt);
             this.Controls.Add(this.PatronymicBox);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.EditNameButt);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.EditNameButt);
+            this.Controls.Add(this.EditSurnameButt);
             this.Controls.Add(this.SurnameBox);
             this.Name = "StudRed";
             this.Text = "StudRed";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StudRed_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -252,22 +284,24 @@ namespace PL
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button EditNameButt;
+        private System.Windows.Forms.Button EditSurnameButt;
         private System.Windows.Forms.TextBox SurnameBox;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button EditNameButt;
         private System.Windows.Forms.TextBox NameBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button EditPatronymicButt;
         private System.Windows.Forms.TextBox PatronymicBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox FacultBox;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button ChangeGroupButt;
         private System.Windows.Forms.TextBox CuratorBox;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox GroupComboBox;
         private System.Windows.Forms.TextBox CourseBox;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button DeleteButt;
+        private System.Windows.Forms.Button ExitButt;
     }
 }

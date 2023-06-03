@@ -22,5 +22,11 @@ namespace BLL
         {
             return new string[] { Name, Surname, Patronymic };
         }
+        public void ChangePersInfo(string name, string surname, string patronymic)
+        {
+            Name = name;
+            Surname = surname;
+            Patronymic = patronymic;
+        }
     }
 }

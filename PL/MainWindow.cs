@@ -39,7 +39,8 @@ namespace PL
             if (StudView.SelectedRows != null)
             {
                 StudRed studRed = new StudRed(this, _MainLogic, 
-                    Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].FormattedValue.ToString().Replace(".", ""))));
+                    Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].FormattedValue.ToString().Replace(".", ""))), 
+                    Logic.StudentsButt_Click);
                 Hide();
                 studRed.Show();
             }

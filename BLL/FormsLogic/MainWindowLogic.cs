@@ -51,9 +51,13 @@ namespace BLL
             for (int index = 0; index < Students.Count; index++)
             {
                 string[] info = Students[index].GetPersInfo();
-                DataGridViews[(int)Type.Student].Rows.Add(new string[] { (index + 1) + ".", info[1] + " " + info[0] + " " + info[2],
-                    Convert.ToString(Students[index].GetGroup().GetCourse()), Students[index].GetGroup().GetName(),
-                    Students[index].GetGroup().GetFacult().GetName() });
+                if (Students[index].GetGroup() == null)
+                    DataGridViews[(int)Type.Student].Rows.Add(new string[] { (index + 1) + ".", info[1] + " " + info[0] + " " + info[2],
+                        "-", "-", "-" });
+                else
+                    DataGridViews[(int)Type.Student].Rows.Add(new string[] { (index + 1) + ".", info[1] + " " + info[0] + " " + info[2],
+                        Convert.ToString(Students[index].GetGroup().GetCourse()), Students[index].GetGroup().GetName(),
+                        Students[index].GetGroup().GetFacult().GetName() });
             }
             Buttons[(int)Type.SelectButt].Click += EventHandlers[(int)Type.Student];
             Selected = Type.Student;
