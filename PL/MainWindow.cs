@@ -15,7 +15,7 @@ namespace PL
             Logic = new MainWindowLogic(_MainLogic.GetStudentList(), _MainLogic.GetTeacherList(), _MainLogic.GetGroupList(),
                 _MainLogic.GetFacultList(), new List<DataGridView> { StudView, TeacherView, GroupView, FacultView },
                 new List<Button> { StudentsButt, TeacherButt, GroupButt, FacultButt, SelectButt, AddButt }, 
-                new List<EventHandler> { StudSelectButt_Click, FacultSelectButt_Click });
+                new List<EventHandler> { StudSelectButt_Click, TeachSelectButt_Click, FacultSelectButt_Click });
             StudentsButt_Click(null, null);
         }
         public void StudentsButt_Click(object sender, EventArgs e)
@@ -39,10 +39,21 @@ namespace PL
             if (StudView.SelectedRows != null)
             {
                 StudRed studRed = new StudRed(this, _MainLogic, 
-                    Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].FormattedValue.ToString().Replace(".", ""))), 
+                    Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value)), 
                     Logic.StudentsButt_Click);
                 Hide();
                 studRed.Show();
+            }
+        }
+        public void TeachSelectButt_Click(object sender, EventArgs e)
+        {
+            if (TeacherView.SelectedRows != null)
+            {
+                TeachRed teachRed = new TeachRed(this, _MainLogic,
+                    Logic.GetTeacher(Convert.ToInt32(TeacherView.SelectedRows[0].Cells[0].Value)),
+                    Logic.TeacherButt_Click);
+                Hide();
+                teachRed.Show();
             }
         }
         public void FacultSelectButt_Click(object sender, EventArgs e)
@@ -50,7 +61,7 @@ namespace PL
             if (FacultView.SelectedRows != null)
             {
                 FacultRed facultRed = new FacultRed(this, _MainLogic,
-                    Logic.GetFacult(Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].FormattedValue.ToString().Replace(".", ""))));
+                    Logic.GetFacult(Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].Value))); /////////////
                 Hide();
                 facultRed.Show();
             }

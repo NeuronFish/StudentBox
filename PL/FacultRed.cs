@@ -19,6 +19,7 @@ namespace PL
             Logic = new FacultRedLogic(facult, new List<TextBox> { NameBox, DeanBox }, new List<DataGridView> { FacultStudView, 
                 FacultTeacherView, FacultGroupView }, new List<Button> { StudentsButt, TeacherButt, GroupButt }, new List<EventHandler> { });
             StudentsButt_Click(null, null);
+
         }
         private void StudentsButt_Click(object sender, EventArgs e)
         {

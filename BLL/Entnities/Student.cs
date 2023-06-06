@@ -5,7 +5,7 @@ namespace BLL
     public class Student : Person
     {
         private Group Group;
-        public Student(string name, string surname, string patronymic, Group group) : base (name, surname, patronymic)
+        public Student(int id, string name, string surname, string patronymic, Group group) : base (id, name, surname, patronymic)
         {
             Group = group;
         }

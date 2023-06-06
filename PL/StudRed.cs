@@ -9,7 +9,7 @@ namespace PL
     {
         private Form Father;
         private IStudRedLogicable Logic;
-        private Action OnClosed;
+        private Action _OnClosed;
 
         public StudRed(Form father, MainLogic mainLogic, Student stud, Action onClosed)
         {
@@ -17,7 +17,8 @@ namespace PL
             Father = father;
             Logic = new StudRedLogic(stud, mainLogic, GroupComboBox, new List<TextBox> { NameBox, SurnameBox,
                 PatronymicBox, FacultBox, CuratorBox, CourseBox });
-            OnClosed = onClosed;
+            _OnClosed = onClosed;
+            ExitButt.Focus();
         }
         private void EditNameButt_Click(object sender, EventArgs e)
         {
@@ -46,7 +47,7 @@ namespace PL
         }
         private void StudRed_FormClosed(object sender, FormClosedEventArgs e)
         {
-            OnClosed.DynamicInvoke();
+            _OnClosed.DynamicInvoke();
             Father.Show();
             Father.Activate();
             Dispose();
@@ -54,7 +55,6 @@ namespace PL
         private void ExitButt_Click(object sender, EventArgs e)
         {
             Close();
-            StudRed_FormClosed(null, null);
         }
     }
 }

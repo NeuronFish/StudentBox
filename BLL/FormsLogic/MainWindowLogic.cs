@@ -41,23 +41,23 @@ namespace BLL
             DataGridViews[(int)Selected].Rows.Clear();
             DataGridViews[(int)Selected].Visible = false;
             Buttons[(int)Selected].ForeColor = System.Drawing.Color.Black;
-            Buttons[(int)Type.SelectButt].Click -= EventHandlers[0]; ///////
+            Buttons[(int)Type.SelectButt].Click -= EventHandlers[(int)Selected];
         }
         public void StudentsButt_Click()
         {
             Clear();
             Buttons[(int)Type.Student].ForeColor = System.Drawing.Color.Blue;
             DataGridViews[(int)Type.Student].Visible = true;
-            for (int index = 0; index < Students.Count; index++)
+            foreach (Student stud in Students)
             {
-                string[] info = Students[index].GetPersInfo();
-                if (Students[index].GetGroup() == null)
-                    DataGridViews[(int)Type.Student].Rows.Add(new string[] { (index + 1) + ".", info[1] + " " + info[0] + " " + info[2],
-                        "-", "-", "-" });
+                string[] info = stud.GetPersInfo();
+                if (stud.GetGroup() == null)
+                    DataGridViews[(int)Type.Student].Rows.Add(new string[] { Convert.ToString(stud.GetId()), 
+                        info[1] + " " + info[0] + " " + info[2], "-", "-", "-" });
                 else
-                    DataGridViews[(int)Type.Student].Rows.Add(new string[] { (index + 1) + ".", info[1] + " " + info[0] + " " + info[2],
-                        Convert.ToString(Students[index].GetGroup().GetCourse()), Students[index].GetGroup().GetName(),
-                        Students[index].GetGroup().GetFacult().GetName() });
+                    DataGridViews[(int)Type.Student].Rows.Add(new string[] { Convert.ToString(stud.GetId()),
+                        info[1] + " " + info[0] + " " + info[2], Convert.ToString(stud.GetGroup().GetCourse()), 
+                        stud.GetGroup().GetName(), stud.GetGroup().GetFacult().GetName() });
             }
             Buttons[(int)Type.SelectButt].Click += EventHandlers[(int)Type.Student];
             Selected = Type.Student;
@@ -67,12 +67,17 @@ namespace BLL
             Clear();
             Buttons[(int)Type.Teacher].ForeColor = System.Drawing.Color.Blue;
             DataGridViews[(int)Type.Teacher].Visible = true;
-            for (int index = 0; index < Teachers.Count; index++)
+            foreach (Teacher teach in Teachers)
             {
-                string[] info = Teachers[index].GetPersInfo();
-                DataGridViews[(int)Type.Teacher].Rows.Add(new string[] { (index + 1) + ".", info[1] + " " + info[0] + " " + info[2],
-                    Teachers[index].GetPosition(), Teachers[index].GetFacult().GetName() });
+                string[] info = teach.GetPersInfo();
+                if (teach.GetFacult() == null)
+                    DataGridViews[(int)Type.Teacher].Rows.Add(new string[] {Convert.ToString(teach.GetId()),
+                        info[1] + " " + info[0] + " " + info[2], teach.GetPosition(), "Відсутній"});
+                else
+                    DataGridViews[(int)Type.Teacher].Rows.Add(new string[] { Convert.ToString(teach.GetId()), 
+                        info[1] + " " + info[0] + " " + info[2], teach.GetPosition(), teach.GetFacult().GetName() });
             }
+            Buttons[(int)Type.SelectButt].Click += EventHandlers[(int)Type.Teacher];
             Selected = Type.Teacher;
         }
         public void GroupButt_Click()
@@ -80,12 +85,13 @@ namespace BLL
             Clear();
             Buttons[(int)Type.Group].ForeColor = System.Drawing.Color.Blue;
             DataGridViews[(int)Type.Group].Visible = true;
-            for (int index = 0; index < Groups.Count; index++)
+            foreach (Group group in Groups)
             {
-                string[] info = Groups[index].GetCurator().GetPersInfo();
-                DataGridViews[(int)Type.Group].Rows.Add(new string[] { (index + 1) + ".", Groups[index].GetName(), 
-                    Convert.ToString(Groups[index].GetCourse()), Groups[index].GetFacult().GetName(), 
-                    Convert.ToString(Groups[index].GetStudentList().Count), info[1] + " " + info[0][0] + "." + info[2][0] + "." });
+                string[] info = group.GetCurator().GetPersInfo();
+                DataGridViews[(int)Type.Group].Rows.Add(new string[] { Convert.ToString(group.GetId()), group.GetName(), 
+                    Convert.ToString(group.GetCourse()), group.GetFacult().GetName(), 
+                    Convert.ToString(group.GetStudentList().Count), info[1] + " " + info[0][0] + "." + 
+                    info[2][0] + "." });
             }
             Selected = Type.Group;
         }
@@ -94,22 +100,26 @@ namespace BLL
             Clear();
             Buttons[(int)Type.Facult].ForeColor = System.Drawing.Color.Blue;
             DataGridViews[(int)Type.Facult].Visible = true;
-            for (int index = 0; index < Facults.Count; index++)
+            foreach (Facult facult in Facults)
             {
-                string[] info = Facults[index].GetDean().GetPersInfo();
-                DataGridViews[(int)Type.Facult].Rows.Add(new string[] { (index + 1) + ".", Facults[index].GetName(), 
-                    info[1] + " " + info[0] + " " + info[2], Convert.ToString(Facults[index].GetGroups().Count) });
+                string[] info = facult.GetDean().GetPersInfo();
+                DataGridViews[(int)Type.Facult].Rows.Add(new string[] { facult.GetId() + ".", facult.GetName(), 
+                    info[1] + " " + info[0] + " " + info[2], Convert.ToString(facult.GetGroups().Count) });
             }
-            Buttons[(int)Type.SelectButt].Click += EventHandlers[1]; /////////
+            //Buttons[(int)Type.SelectButt].Click += EventHandlers[2]; /////////
             Selected = Type.Facult;
         }
-        public Student GetStudent(int index)
+        public Student GetStudent(int id)
         {
-            return Students[index - 1];
+            return Students.Find(item => item.GetId() == id);
         }
-        public Facult GetFacult(int index)
+        public Teacher GetTeacher(int id)
         {
-            return Facults[index - 1];
+            return Teachers.Find(item => item.GetId() == id);
+        }
+        public Facult GetFacult(int id)
+        {
+            return Facults.Find(item => item.GetId() == id);
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BLL
 {
@@ -12,15 +10,20 @@ namespace BLL
         private Facult Facult;
         private List<Student> Students;
         private Student Headman;
-        private Person Curator;
-        public Group(string name, int course, List<Student> students, Student headman, Person curator, Facult facult)
+        private Teacher Curator;
+        public Group(int id, string name, int course, List<Student> students, Student headman, Teacher curator, Facult facult)
         {
+            Id = id;
             Name = name;
             Course = course;
             Students = students;
             Headman = headman;
             Curator = curator;
             Facult = facult;
+        }
+        public int GetId()
+        {
+            return Id;
         }
         public string GetName()
         {
@@ -42,7 +45,7 @@ namespace BLL
         {
             return Facult;
         }
-        public Person GetCurator()
+        public Teacher GetCurator()
         {
             return Curator;
         }
@@ -54,7 +57,7 @@ namespace BLL
         {
             Students.Remove(student);
         }
-        public void ChangeCurator(Person curator)
+        public void ChangeCurator(Teacher curator)
         {
             Curator = curator;
         }

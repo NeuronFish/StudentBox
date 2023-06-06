@@ -61,6 +61,12 @@
     <Compile Include="StudRed.Designer.cs">
       <DependentUpon>StudRed.cs</DependentUpon>
     </Compile>
+    <Compile Include="TeachRed.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TeachRed.Designer.cs">
+      <DependentUpon>TeachRed.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="StudRed.resx">
       <DependentUpon>StudRed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TeachRed.resx">
+      <DependentUpon>TeachRed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

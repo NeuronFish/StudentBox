@@ -8,7 +8,7 @@ namespace BLL
     {
         private Student _Student;
         private MainLogic _MainLogic;
-        private ComboBox GroupList;
+        private ComboBox GroupBox;
         private List<TextBox> TextBoxes;
         private enum TextBoxType
         {
@@ -19,23 +19,23 @@ namespace BLL
             CuratorBox,
             CourseBox
         }
-        public StudRedLogic(Student student, MainLogic mainLogic, ComboBox comboBox, List<TextBox> textBoxes)
+        public StudRedLogic(Student student, MainLogic mainLogic, ComboBox groupBox, List<TextBox> textBoxes)
         {
             _Student = student;
             _MainLogic = mainLogic;
-            GroupList = comboBox;
+            GroupBox = groupBox;
             TextBoxes = textBoxes;
             textBoxes[(int)TextBoxType.NameBox].Text = student.GetPersInfo()[0];
             textBoxes[(int)TextBoxType.SurnameBox].Text = student.GetPersInfo()[1];
             textBoxes[(int)TextBoxType.PatronymicBox].Text = student.GetPersInfo()[2];
             GroupDataUpdate();
-            comboBox.Items.Add("Відсутня");
+            groupBox.Items.Add("Відсутня");
             foreach (Group group in mainLogic.GetGroupList())
-                comboBox.Items.Add(group.GetName());
+                groupBox.Items.Add(group.GetName());
             if (student.GetGroup() == null)
-                comboBox.SelectedItem = "Відсутня";
+                groupBox.SelectedItem = "Відсутня";
             else
-                comboBox.SelectedItem = student.GetGroup().GetName();
+                groupBox.SelectedItem = student.GetGroup().GetName();
         }
         private void GroupDataUpdate()
         {
@@ -74,7 +74,7 @@ namespace BLL
             textBox.ReadOnly = false;
             textBox.Focus();
             textBox.LostFocus += TextBoxChangedEvent;
-            textBox.KeyDown += SurnameBox_KeyDown;
+            textBox.KeyDown += TextBox_KeyDown;
         }
         public void TextBoxChangedEvent(object sender, EventArgs e)
         {
@@ -101,47 +101,48 @@ namespace BLL
                     break;
             }
             textBox.LostFocus -= TextBoxChangedEvent;
-            textBox.KeyDown -= SurnameBox_KeyDown;
+            textBox.KeyDown -= TextBox_KeyDown;
             textBox.ReadOnly = true;
         }
-        public void SurnameBox_KeyDown(object sender, KeyEventArgs e)
+        public void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
                 TextBoxChangedEvent(sender, null);
         }
         public void ChangeGroupButt_Click(object sender, EventArgs e)
         {
-            GroupList.Enabled = true;
-            GroupList.Focus();
-            GroupList.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-            GroupList.LostFocus += GroupComboBox_LostFocus;
+            GroupBox.Enabled = true;
+            GroupBox.Focus();
+            GroupBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
+            GroupBox.LostFocus += GroupComboBox_LostFocus;
         }
         public void GroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_MainLogic.GetGroupList().Find(item => item.GetName() == GroupList.Text) == null && GroupList.Text != "Відсутня")
-                GroupList.SelectedItem = _Student.GetGroup().GetName();
+            if (_MainLogic.GetGroupList().Find(item => item.GetName() == GroupBox.Text) == null && GroupBox.Text != "Відсутня")
+                GroupBox.SelectedItem = _Student.GetGroup().GetName();
             else
             {
                 if (_Student.GetGroup() != null)
                     _Student.GetGroup().RemoveStudent(_Student);
-                if (GroupList.Text == "Відсутня")
+                if (GroupBox.Text == "Відсутня")
                     _Student.ChangeGroup(null);
                 else
                 {
-                    Group newGroup = _MainLogic.GetGroupList().Find(item => item.GetName() == GroupList.Text);
+                    Group newGroup = _MainLogic.GetGroupList().Find(item => item.GetName() == GroupBox.Text);
                     newGroup.AddStudent(_Student);
                     _Student.ChangeGroup(newGroup);
                 }
                 GroupDataUpdate();
-                GroupList.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-                GroupList.Enabled = false;
+                GroupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
+                GroupBox.SelectedIndexChanged -= GroupComboBox_LostFocus;
+                GroupBox.Enabled = false;
             }
         }
         public void GroupComboBox_LostFocus(object sender, EventArgs e)
         {
-            GroupList.LostFocus -= GroupComboBox_LostFocus;
-            GroupList.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-            GroupList.Enabled = false;
+            GroupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
+            GroupBox.LostFocus -= GroupComboBox_LostFocus;
+            GroupBox.Enabled = false;
         }
         public void GroupComboBox_KeyDown(object sender, KeyEventArgs e)
         {

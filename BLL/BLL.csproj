@@ -48,7 +48,9 @@
     <Compile Include="FormsLogic\FacultRedLogic.cs" />
     <Compile Include="FormsLogic\IFacultRedLogicable.cs" />
     <Compile Include="FormsLogic\IStudRedLogicable.cs" />
+    <Compile Include="FormsLogic\ITeachRedLogicable.cs" />
     <Compile Include="FormsLogic\StudRedLogic.cs" />
+    <Compile Include="FormsLogic\TeachRedLogic.cs" />
     <Compile Include="MainLogic.cs" />
     <Compile Include="Entnities\Person.cs" />
     <Compile Include="FormsLogic\IMainWindowLogicable.cs" />

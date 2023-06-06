@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BLL
 {
@@ -11,12 +9,17 @@ namespace BLL
         private Person Dean;
         private List<Group> Groups;
         private List<Teacher> Teachers;
-        public Facult(string name, Person dean, List<Group> groups, List<Teacher> teachers)
+        public Facult(int id, string name, Person dean, List<Group> groups, List<Teacher> teachers)
         {
+            Id = id;
             Name = name;
             Dean = dean;
             Groups = groups;
             Teachers = teachers;
+        }
+        public int GetId()
+        {
+            return Id;
         }
         public string GetName()
         {

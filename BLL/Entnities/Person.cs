@@ -8,8 +8,9 @@ namespace BLL
     {
         private string Name, Surname, Patronymic;
         private int Id;
-        public Person(string name, string surname, string patronymic)
+        public Person(int id, string name, string surname, string patronymic)
         {
+            Id = id;
             Name = name;
             Surname = surname;
             Patronymic = patronymic;

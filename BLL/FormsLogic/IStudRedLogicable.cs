@@ -7,7 +7,7 @@ namespace BLL
     {
         void EditButt_Click(object sender, EventArgs e);
         void TextBoxChangedEvent(object sender, EventArgs e);
-        void SurnameBox_KeyDown(object sender, KeyEventArgs e);
+        void TextBox_KeyDown(object sender, KeyEventArgs e);
         void ChangeGroupButt_Click(object sender, EventArgs e);
         void GroupComboBox_SelectedIndexChanged(object sender, EventArgs e);
         void GroupComboBox_LostFocus(object sender, EventArgs e);
