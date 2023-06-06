@@ -18,19 +18,19 @@ namespace PL
                 new List<EventHandler> { StudSelectButt_Click, TeachSelectButt_Click, FacultSelectButt_Click });
             StudentsButt_Click(null, null);
         }
-        public void StudentsButt_Click(object sender, EventArgs e)
+        private void StudentsButt_Click(object sender, EventArgs e)
         {
             Logic.StudentsButt_Click();
         }
-        public void TeacherButt_Click(object sender, EventArgs e)
+        private void TeacherButt_Click(object sender, EventArgs e)
         {
             Logic.TeacherButt_Click();
         }
-        public void GroupButt_Click(object sender, EventArgs e)
+        private void GroupButt_Click(object sender, EventArgs e)
         {
             Logic.GroupButt_Click();
         }
-        public void FacultButt_Click(object sender, EventArgs e)
+        private void FacultButt_Click(object sender, EventArgs e)
         {
             Logic.FacultButt_Click();
         }
