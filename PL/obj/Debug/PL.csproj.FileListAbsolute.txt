@@ -12,3 +12,4 @@ E:\MyTest\StudentBox\PL\obj\Debug\PL.csproj.CopyComplete
 E:\MyTest\StudentBox\PL\obj\Debug\PL.FacultRed.resources
 E:\MyTest\StudentBox\PL\obj\Debug\PL.StudRed.resources
 E:\MyTest\StudentBox\PL\obj\Debug\PL.TeachRed.resources
+E:\MyTest\StudentBox\PL\obj\Debug\PL.GroupRed.resources

@@ -38,22 +38,22 @@ namespace PL
             this.TeacherButt = new System.Windows.Forms.Button();
             this.StudentsButt = new System.Windows.Forms.Button();
             this.FacultStudView = new System.Windows.Forms.DataGridView();
-            this.FacultTeacherView = new System.Windows.Forms.DataGridView();
-            this.FacultGroupView = new System.Windows.Forms.DataGridView();
-            this.SelectButt = new System.Windows.Forms.Button();
             this.StudNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FacultTeacherView = new System.Windows.Forms.DataGridView();
             this.TeachNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeachInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeachPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FacultGroupView = new System.Windows.Forms.DataGridView();
             this.GroupNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupDean = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Headman = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectButt = new System.Windows.Forms.Button();
             this.DeanComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.FacultStudView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FacultTeacherView)).BeginInit();
@@ -158,55 +158,6 @@ namespace PL
             this.FacultStudView.TabIndex = 24;
             this.FacultStudView.Visible = false;
             // 
-            // FacultTeacherView
-            // 
-            this.FacultTeacherView.AllowUserToAddRows = false;
-            this.FacultTeacherView.AllowUserToDeleteRows = false;
-            this.FacultTeacherView.AllowUserToResizeRows = false;
-            this.FacultTeacherView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FacultTeacherView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TeachNum,
-            this.TeachInfo,
-            this.TeachPosition});
-            this.FacultTeacherView.Location = new System.Drawing.Point(16, 58);
-            this.FacultTeacherView.Name = "FacultTeacherView";
-            this.FacultTeacherView.ReadOnly = true;
-            this.FacultTeacherView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.FacultTeacherView.Size = new System.Drawing.Size(603, 286);
-            this.FacultTeacherView.TabIndex = 26;
-            this.FacultTeacherView.Visible = false;
-            // 
-            // FacultGroupView
-            // 
-            this.FacultGroupView.AllowUserToAddRows = false;
-            this.FacultGroupView.AllowUserToDeleteRows = false;
-            this.FacultGroupView.AllowUserToResizeRows = false;
-            this.FacultGroupView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FacultGroupView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.GroupNum,
-            this.GroupName,
-            this.GroupCourse,
-            this.GroupCount,
-            this.GroupDean,
-            this.Headman});
-            this.FacultGroupView.Location = new System.Drawing.Point(16, 58);
-            this.FacultGroupView.Name = "FacultGroupView";
-            this.FacultGroupView.ReadOnly = true;
-            this.FacultGroupView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.FacultGroupView.Size = new System.Drawing.Size(603, 286);
-            this.FacultGroupView.TabIndex = 27;
-            this.FacultGroupView.Visible = false;
-            // 
-            // SelectButt
-            // 
-            this.SelectButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SelectButt.Location = new System.Drawing.Point(642, 87);
-            this.SelectButt.Name = "SelectButt";
-            this.SelectButt.Size = new System.Drawing.Size(116, 39);
-            this.SelectButt.TabIndex = 28;
-            this.SelectButt.Text = "Обрати";
-            this.SelectButt.UseVisualStyleBackColor = true;
-            // 
             // StudNum
             // 
             this.StudNum.HeaderText = "Id";
@@ -235,6 +186,24 @@ namespace PL
             this.StudGroup.ReadOnly = true;
             this.StudGroup.Width = 189;
             // 
+            // FacultTeacherView
+            // 
+            this.FacultTeacherView.AllowUserToAddRows = false;
+            this.FacultTeacherView.AllowUserToDeleteRows = false;
+            this.FacultTeacherView.AllowUserToResizeRows = false;
+            this.FacultTeacherView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FacultTeacherView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TeachNum,
+            this.TeachInfo,
+            this.TeachPosition});
+            this.FacultTeacherView.Location = new System.Drawing.Point(16, 58);
+            this.FacultTeacherView.Name = "FacultTeacherView";
+            this.FacultTeacherView.ReadOnly = true;
+            this.FacultTeacherView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.FacultTeacherView.Size = new System.Drawing.Size(603, 286);
+            this.FacultTeacherView.TabIndex = 26;
+            this.FacultTeacherView.Visible = false;
+            // 
             // TeachNum
             // 
             this.TeachNum.HeaderText = "Id";
@@ -255,6 +224,27 @@ namespace PL
             this.TeachPosition.Name = "TeachPosition";
             this.TeachPosition.ReadOnly = true;
             this.TeachPosition.Width = 250;
+            // 
+            // FacultGroupView
+            // 
+            this.FacultGroupView.AllowUserToAddRows = false;
+            this.FacultGroupView.AllowUserToDeleteRows = false;
+            this.FacultGroupView.AllowUserToResizeRows = false;
+            this.FacultGroupView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FacultGroupView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GroupNum,
+            this.GroupName,
+            this.GroupCourse,
+            this.GroupCount,
+            this.GroupDean,
+            this.Headman});
+            this.FacultGroupView.Location = new System.Drawing.Point(16, 58);
+            this.FacultGroupView.Name = "FacultGroupView";
+            this.FacultGroupView.ReadOnly = true;
+            this.FacultGroupView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.FacultGroupView.Size = new System.Drawing.Size(603, 286);
+            this.FacultGroupView.TabIndex = 27;
+            this.FacultGroupView.Visible = false;
             // 
             // GroupNum
             // 
@@ -297,6 +287,16 @@ namespace PL
             this.Headman.Name = "Headman";
             this.Headman.ReadOnly = true;
             this.Headman.Width = 140;
+            // 
+            // SelectButt
+            // 
+            this.SelectButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectButt.Location = new System.Drawing.Point(642, 87);
+            this.SelectButt.Name = "SelectButt";
+            this.SelectButt.Size = new System.Drawing.Size(116, 39);
+            this.SelectButt.TabIndex = 28;
+            this.SelectButt.Text = "Обрати";
+            this.SelectButt.UseVisualStyleBackColor = true;
             // 
             // DeanComboBox
             // 

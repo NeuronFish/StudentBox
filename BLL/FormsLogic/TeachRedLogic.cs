@@ -32,19 +32,23 @@ namespace BLL
             textBoxes[(int)TextBoxType.SurnameBox].Text = teacher.GetPersInfo()[1];
             textBoxes[(int)TextBoxType.PatronymicBox].Text = teacher.GetPersInfo()[2];
             textBoxes[(int)TextBoxType.PositionBox].Text = teacher.GetPosition();
+            InitializeComponent();
+        }
+        private void InitializeComponent()
+        {
             FacultBox.Items.Add("Відсутній");
-            foreach (Facult facult in mainLogic.GetFacultList())
+            foreach (Facult facult in _MainLogic.GetFacultList())
                 FacultBox.Items.Add(facult.GetName());
+            InitializeFacultData();
             CuratorBox.Items.Add("Не є куратором");
-            foreach (Group group in mainLogic.GetGroupList())
+            foreach (Group group in _MainLogic.GetGroupList())
                 CuratorBox.Items.Add(group.GetName());
-            FacultDataUpdate();
-            if (teacher.GetCuratorGroup() == null)
+            if (_Teacher.GetCuratorGroup() == null)
                 CuratorBox.SelectedItem = "Не є куратором";
             else
-                CuratorBox.SelectedItem = teacher.GetCuratorGroup().GetName();
+                CuratorBox.SelectedItem = _Teacher.GetCuratorGroup().GetName();
         }
-        private void FacultDataUpdate()
+        private void InitializeFacultData()
         {
             if (_Teacher.GetFacult() == null)
             {
@@ -160,7 +164,7 @@ namespace BLL
                     newFacult.AddTeacher(_Teacher);
                     _Teacher.ChangeFacult(newFacult);
                 }
-                FacultDataUpdate();
+                InitializeFacultData();
                 FacultBox.SelectedIndexChanged -= FacultComboBox_SelectedIndexChanged;
                 FacultBox.LostFocus -= ComboBox_LostFocus;
                 FacultBox.Enabled = false;

@@ -28,16 +28,10 @@ namespace BLL
             textBoxes[(int)TextBoxType.NameBox].Text = student.GetPersInfo()[0];
             textBoxes[(int)TextBoxType.SurnameBox].Text = student.GetPersInfo()[1];
             textBoxes[(int)TextBoxType.PatronymicBox].Text = student.GetPersInfo()[2];
-            GroupDataUpdate();
-            groupBox.Items.Add("Відсутня");
-            foreach (Group group in mainLogic.GetGroupList())
-                groupBox.Items.Add(group.GetName());
-            if (student.GetGroup() == null)
-                groupBox.SelectedItem = "Відсутня";
-            else
-                groupBox.SelectedItem = student.GetGroup().GetName();
+            InitializeGroupData();
+            InitializeGroupBox();
         }
-        private void GroupDataUpdate()
+        private void InitializeGroupData()
         {
             if (_Student.GetGroup() == null)
             {
@@ -52,6 +46,16 @@ namespace BLL
                 TextBoxes[(int)TextBoxType.CuratorBox].Text = curator[1] + " " + curator[0][0] + "." + curator[2][0] + ".";
                 TextBoxes[(int)TextBoxType.CourseBox].Text = Convert.ToString(_Student.GetGroup().GetCourse());
             }
+        }
+        private void InitializeGroupBox()
+        {
+            GroupBox.Items.Add("Відсутня");
+            foreach (Group group in _MainLogic.GetGroupList())
+                GroupBox.Items.Add(group.GetName());
+            if (_Student.GetGroup() == null)
+                GroupBox.SelectedItem = "Відсутня";
+            else
+                GroupBox.SelectedItem = _Student.GetGroup().GetName();
         }
         public void EditButt_Click(object sender, EventArgs e)
         {
@@ -132,7 +136,7 @@ namespace BLL
                     newGroup.AddStudent(_Student);
                     _Student.ChangeGroup(newGroup);
                 }
-                GroupDataUpdate();
+                InitializeGroupData();
                 GroupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
                 GroupBox.SelectedIndexChanged -= GroupComboBox_LostFocus;
                 GroupBox.Enabled = false;
@@ -153,6 +157,8 @@ namespace BLL
         {
             if (_Student.GetGroup() != null)
                 _Student.GetGroup().RemoveStudent(_Student);
+            if (_Student.GetGroup().GetHeadman() == _Student)
+                _Student.GetGroup().ChangeHeadman(null);
             _MainLogic.GetStudentList().Remove(_Student);
         }
     }

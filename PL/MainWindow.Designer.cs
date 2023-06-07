@@ -23,30 +23,30 @@ namespace PL
             this.FacultButt = new System.Windows.Forms.Button();
             this.PersonButt = new System.Windows.Forms.Button();
             this.StudView = new System.Windows.Forms.DataGridView();
-            this.TeacherView = new System.Windows.Forms.DataGridView();
-            this.GroupView = new System.Windows.Forms.DataGridView();
-            this.FacultView = new System.Windows.Forms.DataGridView();
-            this.SelectButt = new System.Windows.Forms.Button();
-            this.AddButt = new System.Windows.Forms.Button();
             this.StudNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudGroup = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudFacult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TeacherView = new System.Windows.Forms.DataGridView();
             this.TeachNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeachInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeachPosition = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TeachFacult = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GroupView = new System.Windows.Forms.DataGridView();
             this.GroupNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupCourse = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupFacult = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GroupDean = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FacultView = new System.Windows.Forms.DataGridView();
             this.FacultNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FacultName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FacultDean = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FacultCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectButt = new System.Windows.Forms.Button();
+            this.AddButt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.StudView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.TeacherView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.GroupView)).BeginInit();
@@ -122,85 +122,6 @@ namespace PL
             this.StudView.TabIndex = 15;
             this.StudView.Visible = false;
             // 
-            // TeacherView
-            // 
-            this.TeacherView.AllowUserToAddRows = false;
-            this.TeacherView.AllowUserToDeleteRows = false;
-            this.TeacherView.AllowUserToResizeRows = false;
-            this.TeacherView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.TeacherView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.TeachNum,
-            this.TeachInfo,
-            this.TeachPosition,
-            this.TeachFacult});
-            this.TeacherView.Location = new System.Drawing.Point(12, 12);
-            this.TeacherView.Name = "TeacherView";
-            this.TeacherView.ReadOnly = true;
-            this.TeacherView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TeacherView.Size = new System.Drawing.Size(554, 286);
-            this.TeacherView.TabIndex = 16;
-            this.TeacherView.Visible = false;
-            // 
-            // GroupView
-            // 
-            this.GroupView.AllowUserToAddRows = false;
-            this.GroupView.AllowUserToDeleteRows = false;
-            this.GroupView.AllowUserToResizeRows = false;
-            this.GroupView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GroupView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.GroupNum,
-            this.GroupName,
-            this.GroupCourse,
-            this.GroupFacult,
-            this.GroupCount,
-            this.GroupDean});
-            this.GroupView.Location = new System.Drawing.Point(12, 12);
-            this.GroupView.Name = "GroupView";
-            this.GroupView.ReadOnly = true;
-            this.GroupView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.GroupView.Size = new System.Drawing.Size(554, 286);
-            this.GroupView.TabIndex = 17;
-            this.GroupView.Visible = false;
-            // 
-            // FacultView
-            // 
-            this.FacultView.AllowUserToAddRows = false;
-            this.FacultView.AllowUserToDeleteRows = false;
-            this.FacultView.AllowUserToResizeRows = false;
-            this.FacultView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FacultView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FacultNum,
-            this.FacultName,
-            this.FacultDean,
-            this.FacultCount});
-            this.FacultView.Location = new System.Drawing.Point(12, 12);
-            this.FacultView.Name = "FacultView";
-            this.FacultView.ReadOnly = true;
-            this.FacultView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.FacultView.Size = new System.Drawing.Size(554, 286);
-            this.FacultView.TabIndex = 18;
-            this.FacultView.Visible = false;
-            // 
-            // SelectButt
-            // 
-            this.SelectButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SelectButt.Location = new System.Drawing.Point(606, 41);
-            this.SelectButt.Name = "SelectButt";
-            this.SelectButt.Size = new System.Drawing.Size(116, 39);
-            this.SelectButt.TabIndex = 19;
-            this.SelectButt.Text = "Обрати";
-            this.SelectButt.UseVisualStyleBackColor = true;
-            // 
-            // AddButt
-            // 
-            this.AddButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.AddButt.Location = new System.Drawing.Point(606, 95);
-            this.AddButt.Name = "AddButt";
-            this.AddButt.Size = new System.Drawing.Size(116, 59);
-            this.AddButt.TabIndex = 20;
-            this.AddButt.Text = "Додати викладача";
-            this.AddButt.UseVisualStyleBackColor = true;
-            // 
             // StudNum
             // 
             this.StudNum.HeaderText = "Id";
@@ -235,6 +156,25 @@ namespace PL
             this.StudFacult.ReadOnly = true;
             this.StudFacult.Width = 140;
             // 
+            // TeacherView
+            // 
+            this.TeacherView.AllowUserToAddRows = false;
+            this.TeacherView.AllowUserToDeleteRows = false;
+            this.TeacherView.AllowUserToResizeRows = false;
+            this.TeacherView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.TeacherView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.TeachNum,
+            this.TeachInfo,
+            this.TeachPosition,
+            this.TeachFacult});
+            this.TeacherView.Location = new System.Drawing.Point(12, 12);
+            this.TeacherView.Name = "TeacherView";
+            this.TeacherView.ReadOnly = true;
+            this.TeacherView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.TeacherView.Size = new System.Drawing.Size(554, 286);
+            this.TeacherView.TabIndex = 16;
+            this.TeacherView.Visible = false;
+            // 
             // TeachNum
             // 
             this.TeachNum.HeaderText = "Id";
@@ -262,6 +202,27 @@ namespace PL
             this.TeachFacult.Name = "TeachFacult";
             this.TeachFacult.ReadOnly = true;
             this.TeachFacult.Width = 130;
+            // 
+            // GroupView
+            // 
+            this.GroupView.AllowUserToAddRows = false;
+            this.GroupView.AllowUserToDeleteRows = false;
+            this.GroupView.AllowUserToResizeRows = false;
+            this.GroupView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GroupView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GroupNum,
+            this.GroupName,
+            this.GroupCourse,
+            this.GroupFacult,
+            this.GroupCount,
+            this.GroupDean});
+            this.GroupView.Location = new System.Drawing.Point(12, 12);
+            this.GroupView.Name = "GroupView";
+            this.GroupView.ReadOnly = true;
+            this.GroupView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.GroupView.Size = new System.Drawing.Size(554, 286);
+            this.GroupView.TabIndex = 17;
+            this.GroupView.Visible = false;
             // 
             // GroupNum
             // 
@@ -305,6 +266,25 @@ namespace PL
             this.GroupDean.ReadOnly = true;
             this.GroupDean.Width = 103;
             // 
+            // FacultView
+            // 
+            this.FacultView.AllowUserToAddRows = false;
+            this.FacultView.AllowUserToDeleteRows = false;
+            this.FacultView.AllowUserToResizeRows = false;
+            this.FacultView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FacultView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.FacultNum,
+            this.FacultName,
+            this.FacultDean,
+            this.FacultCount});
+            this.FacultView.Location = new System.Drawing.Point(12, 12);
+            this.FacultView.Name = "FacultView";
+            this.FacultView.ReadOnly = true;
+            this.FacultView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.FacultView.Size = new System.Drawing.Size(554, 286);
+            this.FacultView.TabIndex = 18;
+            this.FacultView.Visible = false;
+            // 
             // FacultNum
             // 
             this.FacultNum.HeaderText = "Id";
@@ -332,6 +312,26 @@ namespace PL
             this.FacultCount.Name = "FacultCount";
             this.FacultCount.ReadOnly = true;
             this.FacultCount.Width = 105;
+            // 
+            // SelectButt
+            // 
+            this.SelectButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectButt.Location = new System.Drawing.Point(606, 41);
+            this.SelectButt.Name = "SelectButt";
+            this.SelectButt.Size = new System.Drawing.Size(116, 39);
+            this.SelectButt.TabIndex = 19;
+            this.SelectButt.Text = "Обрати";
+            this.SelectButt.UseVisualStyleBackColor = true;
+            // 
+            // AddButt
+            // 
+            this.AddButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddButt.Location = new System.Drawing.Point(606, 95);
+            this.AddButt.Name = "AddButt";
+            this.AddButt.Size = new System.Drawing.Size(116, 59);
+            this.AddButt.TabIndex = 20;
+            this.AddButt.Text = "Додати викладача";
+            this.AddButt.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 

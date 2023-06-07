@@ -15,7 +15,7 @@ namespace PL
             Logic = new MainWindowLogic(_MainLogic.GetStudentList(), _MainLogic.GetTeacherList(), _MainLogic.GetGroupList(),
                 _MainLogic.GetFacultList(), new List<DataGridView> { StudView, TeacherView, GroupView, FacultView },
                 new List<Button> { StudentsButt, TeacherButt, GroupButt, FacultButt, SelectButt, AddButt }, 
-                new List<EventHandler> { StudSelectButt_Click, TeachSelectButt_Click, FacultSelectButt_Click });
+                new List<EventHandler> { StudSelectButt_Click, TeachSelectButt_Click, GroupSelectButt_Click, FacultSelectButt_Click });
             StudentsButt_Click(null, null);
         }
         private void StudentsButt_Click(object sender, EventArgs e)
@@ -54,6 +54,17 @@ namespace PL
                     Logic.TeacherButt_Click);
                 Hide();
                 teachRed.Show();
+            }
+        }
+        public void GroupSelectButt_Click(object sender, EventArgs e)
+        {
+            if (GroupView.SelectedRows != null)
+            {
+                GroupRed groupRed = new GroupRed(this, _MainLogic, 
+                    Logic.GetGroup(Convert.ToInt32(GroupView.SelectedRows[0].Cells[0].Value)), 
+                    Logic.GroupButt_Click);
+                Hide();
+                groupRed.Show();
             }
         }
         public void FacultSelectButt_Click(object sender, EventArgs e)

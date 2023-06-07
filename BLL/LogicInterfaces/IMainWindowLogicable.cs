@@ -14,6 +14,7 @@ namespace BLL
         void FacultButt_Click();
         Student GetStudent(int id);
         Teacher GetTeacher(int id);
+        Group GetGroup(int id);
         Facult GetFacult(int id);
     }
 }

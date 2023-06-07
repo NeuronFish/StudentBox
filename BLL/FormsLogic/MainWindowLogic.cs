@@ -93,6 +93,7 @@ namespace BLL
                     Convert.ToString(group.GetStudentList().Count), info[1] + " " + info[0][0] + "." + 
                     info[2][0] + "." });
             }
+            Buttons[(int)Type.SelectButt].Click += EventHandlers[(int)Type.Group];
             Selected = Type.Group;
         }
         public void FacultButt_Click()
@@ -116,6 +117,10 @@ namespace BLL
         public Teacher GetTeacher(int id)
         {
             return Teachers.Find(item => item.GetId() == id);
+        }
+        public Group GetGroup(int id)
+        {
+            return Groups.Find(item => item.GetId() == id);
         }
         public Facult GetFacult(int id)
         {
