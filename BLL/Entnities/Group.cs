@@ -7,7 +7,7 @@ namespace BLL
         private string Name;
         private int Course;
         private int Id;
-        private Facult Facult;
+        private Facult _Facult;
         private List<Student> Students;
         private Student Headman;
         private Teacher Curator;
@@ -19,7 +19,7 @@ namespace BLL
             Students = students;
             Headman = headman;
             Curator = curator;
-            Facult = facult;
+            _Facult = facult;
         }
         public int GetId()
         {
@@ -43,7 +43,7 @@ namespace BLL
         }
         public Facult GetFacult()
         {
-            return Facult;
+            return _Facult;
         }
         public Teacher GetCurator()
         {
@@ -56,6 +56,18 @@ namespace BLL
         public void RemoveStudent(Student student)
         {
             Students.Remove(student);
+        }
+        public void ChangeName(string name)
+        {
+            Name = name;
+        }
+        public void ChangeCourse(int course)
+        {
+            Course = course;
+        }
+        public void ChangeFacult(Facult facult)
+        {
+            _Facult = facult;
         }
         public void ChangeCurator(Teacher curator)
         {

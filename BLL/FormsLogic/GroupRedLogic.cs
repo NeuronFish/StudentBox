@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace BLL
@@ -8,9 +7,8 @@ namespace BLL
     {
         private Group _Group;
         private MainLogic _MainLogic;
-        private TextBox Name;
-        private List<ComboBox> ComboBoxes;
         private DataGridView StudView;
+        private EventHandler Current;
         private enum ComboBoxType
         {
             Curator,
@@ -19,71 +17,199 @@ namespace BLL
             Course
         }
 
-        public GroupRedLogic(Group group, MainLogic mainLogic, TextBox name, List<ComboBox> comboBoxes,
-            DataGridView studView)
+        public GroupRedLogic(Group group, MainLogic mainLogic, DataGridView studView)
         {
             _Group = group;
             _MainLogic = mainLogic;
-            Name = name;
-            ComboBoxes = comboBoxes;
             StudView = studView;
-            name.Text = group.GetName();
-            InitializeCuratorComboBox();
-            InitializeHeadmanComboBox();
-            InitializeFacultComboBox();
-            comboBoxes[(int)ComboBoxType.Course].Items.AddRange(new string[] { "1", "2", "3", "4", "5", "6" });
-            comboBoxes[(int)ComboBoxType.Course].SelectedItem = Convert.ToString(group.GetCourse());
-            InitializeStudGridView();
         }
-        private void InitializeCuratorComboBox()
+        public void InitializeNameBox(TextBox textBox)
         {
-            ComboBoxes[(int)ComboBoxType.Curator].Items.Add("Відсутній");
+            textBox.Text = _Group.GetName();
+        }
+        private string GetPersonInfo(Person person)
+        {
+            if (person == null)
+                return "Відсутній";
+            else
+            {
+                string[] info = person.GetPersInfo();
+                return info[1] + " " + info[0][0] + "." + info[2][0] + ".";
+            }
+        }
+        public void InitializeCuratorComboBox(ComboBox comboBox)
+        {
+            comboBox.Items.Add("Відсутній");
             foreach (Teacher teach in _MainLogic.GetTeacherList())
             {
                 string[] info = teach.GetPersInfo();
-                ComboBoxes[(int)ComboBoxType.Curator].Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
+                comboBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
             }
-            if (_Group.GetCurator() == null)
-                ComboBoxes[(int)ComboBoxType.Curator].SelectedItem = "Відсутній";
-            else
-            {
-                string[] info = _Group.GetCurator().GetPersInfo();
-                ComboBoxes[(int)ComboBoxType.Curator].SelectedItem = info[1] + " " + info[0][0] + "." + info[2][0] + ".";
-            }
+            comboBox.SelectedItem = GetPersonInfo(_Group.GetCurator());
         }
-        private void InitializeHeadmanComboBox()
+        public void InitializeHeadmanComboBox(ComboBox comboBox)
         {
-            ComboBoxes[(int)ComboBoxType.Headman].Items.Add("Відсутній");
+            comboBox.Items.Add("Відсутній");
             foreach (Student stud in _Group.GetStudentList())
             {
                 string[] info = stud.GetPersInfo();
-                ComboBoxes[(int)ComboBoxType.Headman].Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
+                comboBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
             }
-            if (_Group.GetHeadman() == null)
-                ComboBoxes[(int)ComboBoxType.Headman].SelectedItem = "Відсутній";
-            else
-            {
-                string[] info = _Group.GetHeadman().GetPersInfo();
-                ComboBoxes[(int)ComboBoxType.Headman].SelectedItem = info[1] + " " + info[0][0] + "." + info[2][0] + ".";
-            }
+            comboBox.SelectedItem = GetPersonInfo(_Group.GetHeadman());
         }
-        private void InitializeFacultComboBox()
+        public void InitializeFacultComboBox(ComboBox comboBox)
         {
-            ComboBoxes[(int)ComboBoxType.Facult].Items.Add("Відсутній");
+            comboBox.Items.Add("Відсутній");
             foreach (Facult facult in _MainLogic.GetFacultList())
-                ComboBoxes[(int)ComboBoxType.Facult].Items.Add(facult.GetName());
+                comboBox.Items.Add(facult.GetName());
             if (_Group.GetFacult() == null)
-                ComboBoxes[(int)ComboBoxType.Facult].SelectedItem = "Відсутній";
+                comboBox.SelectedItem = "Відсутній";
             else
-                ComboBoxes[(int)ComboBoxType.Facult].SelectedItem = _Group.GetFacult().GetName();
+                comboBox.SelectedItem = _Group.GetFacult().GetName();
         }
-        private void InitializeStudGridView()
+        public void InitializeCourseComboBox(ComboBox comboBox)
+        {
+            comboBox.Items.AddRange(new string[] { "1", "2", "3", "4", "5", "6" });
+            comboBox.SelectedItem = Convert.ToString(_Group.GetCourse());
+        }
+        public void InitializeStudGridView(DataGridView studView)
         {
             foreach(Student stud in _Group.GetStudentList())
             {
                 string[] info = stud.GetPersInfo();
-                StudView.Rows.Add(new string[] { Convert.ToString(stud.GetId()), info[1], info[0], info[2] });
+                studView.Rows.Add(new string[] { Convert.ToString(stud.GetId()), info[1], info[0], info[2] });
             }
+        }
+        public void NameBoxChangedEvent(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == "" || _MainLogic.GetGroupList().Find(item => item.GetName() == textBox.Text) != null)
+                textBox.Text = _Group.GetName();
+            else
+                _Group.ChangeName(textBox.Text);
+            textBox.LostFocus -= NameBoxChangedEvent;
+            textBox.KeyDown -= NameBox_KeyDown;
+            textBox.ReadOnly = true;
+        }
+        public void NameBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                NameBoxChangedEvent(sender, null);
+        }
+        public void EditNameButt_Click(TextBox textBox)
+        {
+            textBox.ReadOnly = false;
+            textBox.Focus();
+            textBox.LostFocus += NameBoxChangedEvent;
+            textBox.KeyDown += NameBox_KeyDown;
+        }
+        public void Curator_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            Teacher teacher = _MainLogic.GetTeacherList().Find(teach => teach.GetPersInfo()[1] + " " + teach.GetPersInfo()[0][0] + "."
+                + teach.GetPersInfo()[2][0] + "." == comboBox.Text);
+            if (teacher == null && comboBox.Text != "Відсутній")
+                comboBox.SelectedItem = GetPersonInfo(_Group.GetCurator());
+            else
+            {
+                if (_Group.GetCurator() != null)
+                    _Group.GetCurator().ChangeCuratorGroup(null);
+                if (comboBox.Text == "Відсутній")
+                    _Group.ChangeCurator(null);
+                else
+                {
+                    _Group.ChangeCurator(teacher);
+                    teacher.ChangeCuratorGroup(_Group);
+                }
+            }
+            comboBox.SelectedIndexChanged -= Curator_SelectedIndexChanged;
+            comboBox.LostFocus -= Curator_SelectedIndexChanged;
+            comboBox.Enabled = false;
+        }
+        public void Headman_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            if (comboBox.Text == "Відсутній")
+                _Group.ChangeHeadman(null);
+            else
+            {
+                Student student = _MainLogic.GetStudentList().Find(stud => stud.GetPersInfo()[1] + " " + stud.GetPersInfo()[0][0] + "."
+                    + stud.GetPersInfo()[2][0] + "." == comboBox.Text);
+                if (student == null)
+                    comboBox.SelectedItem = GetPersonInfo(_Group.GetHeadman()); ///////////
+                else
+                    _Group.ChangeHeadman(student);
+            }
+            comboBox.SelectedIndexChanged -= Headman_SelectedIndexChanged;
+            comboBox.LostFocus -= Headman_SelectedIndexChanged;
+            comboBox.Enabled = false;
+        }
+        public void Facult_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            Facult facult = _MainLogic.GetFacultList().Find(_facult => _facult.GetName() == comboBox.Text);
+            if (facult == null && comboBox.Text != "Відсутній")
+            {
+                if (_Group.GetFacult() == null)
+                    comboBox.SelectedItem = "Відсутній";
+                else
+                    comboBox.SelectedItem = _Group.GetFacult().GetName();
+            }
+            else
+            {
+                if (_Group.GetFacult() != null)
+                    _Group.GetFacult().RemoveGroup(_Group);
+                if (comboBox.Text == "Відсутній")
+                    _Group.ChangeFacult(null);
+                else
+                {
+                    _Group.ChangeFacult(facult);
+                    _Group.GetFacult().AddGroup(_Group);
+                }
+            }
+            comboBox.SelectedIndexChanged -= Facult_SelectedIndexChanged;
+            comboBox.LostFocus -= Facult_SelectedIndexChanged;
+            comboBox.Enabled = false;
+        }
+        public void Course_SelectIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox comboBox = (ComboBox)sender;
+            if (int.TryParse(comboBox.Text, out int number) && number > 0 && number < 7)
+                _Group.ChangeCourse(number);
+            else
+                comboBox.SelectedItem = _Group.GetCourse();
+            comboBox.SelectedIndexChanged -= Course_SelectIndexChanged;
+            comboBox.LostFocus -= Course_SelectIndexChanged;
+            comboBox.Enabled = false;
+        }
+        private void SetComboBoxLogic(ComboBox comboBox, EventHandler SelectedIndexChanged)
+        {
+            comboBox.Enabled = true;
+            comboBox.Focus();
+            Current = SelectedIndexChanged;
+            comboBox.SelectedIndexChanged += SelectedIndexChanged;
+            comboBox.LostFocus += SelectedIndexChanged;
+        }
+        public void ChangeCuratorButt_Click(ComboBox comboBox)
+        {
+            SetComboBoxLogic(comboBox, Curator_SelectedIndexChanged);
+        }
+        public void ChangeHeadmanButt_Click(ComboBox comboBox)
+        {
+            SetComboBoxLogic(comboBox, Headman_SelectedIndexChanged);
+        }
+        public void ChangeFacultButt_Click(ComboBox comboBox)
+        {
+            SetComboBoxLogic(comboBox, Facult_SelectedIndexChanged);
+        }
+        public void ChangeCourseButt_Click(ComboBox comboBox)
+        {
+            SetComboBoxLogic(comboBox, Course_SelectIndexChanged);
+        }
+        public void ComboBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+                Current(sender, null);
         }
     }
 }
