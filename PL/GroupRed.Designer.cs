@@ -50,6 +50,8 @@ namespace PL
             this.label5 = new System.Windows.Forms.Label();
             this.ChangeCourseButt = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
+            this.ExitButt = new System.Windows.Forms.Button();
+            this.DeleteButt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.StudView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -262,11 +264,35 @@ namespace PL
             this.label6.TabIndex = 46;
             this.label6.Text = "Список студентів:";
             // 
+            // ExitButt
+            // 
+            this.ExitButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ExitButt.Location = new System.Drawing.Point(733, 384);
+            this.ExitButt.Name = "ExitButt";
+            this.ExitButt.Size = new System.Drawing.Size(55, 38);
+            this.ExitButt.TabIndex = 47;
+            this.ExitButt.Text = ">";
+            this.ExitButt.UseVisualStyleBackColor = true;
+            this.ExitButt.Click += new System.EventHandler(this.ExitButt_Click);
+            // 
+            // DeleteButt
+            // 
+            this.DeleteButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DeleteButt.Location = new System.Drawing.Point(607, 340);
+            this.DeleteButt.Name = "DeleteButt";
+            this.DeleteButt.Size = new System.Drawing.Size(181, 38);
+            this.DeleteButt.TabIndex = 48;
+            this.DeleteButt.Text = "Видалити групу";
+            this.DeleteButt.UseVisualStyleBackColor = true;
+            this.DeleteButt.Click += new System.EventHandler(this.DeleteButt_Click);
+            // 
             // GroupRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DeleteButt);
+            this.Controls.Add(this.ExitButt);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.CourseComboBox);
             this.Controls.Add(this.label5);
@@ -286,6 +312,7 @@ namespace PL
             this.Controls.Add(this.StudView);
             this.Name = "GroupRed";
             this.Text = "GroupRed";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GroupRed_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.StudView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -315,5 +342,7 @@ namespace PL
         private System.Windows.Forms.DataGridViewTextBoxColumn Surname;
         private System.Windows.Forms.DataGridViewTextBoxColumn SName;
         private System.Windows.Forms.DataGridViewTextBoxColumn Patronymic;
+        private System.Windows.Forms.Button ExitButt;
+        private System.Windows.Forms.Button DeleteButt;
     }
 }

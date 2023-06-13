@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using BLL;
 
@@ -12,27 +11,24 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            Logic = new MainWindowLogic(_MainLogic.GetStudentList(), _MainLogic.GetTeacherList(), _MainLogic.GetGroupList(),
-                _MainLogic.GetFacultList(), new List<DataGridView> { StudView, TeacherView, GroupView, FacultView },
-                new List<Button> { StudentsButt, TeacherButt, GroupButt, FacultButt, SelectButt, AddButt }, 
-                new List<EventHandler> { StudSelectButt_Click, TeachSelectButt_Click, GroupSelectButt_Click, FacultSelectButt_Click });
+            Logic = new MainWindowLogic(_MainLogic, SelectButt);
             StudentsButt_Click(null, null);
         }
         private void StudentsButt_Click(object sender, EventArgs e)
         {
-            Logic.StudentsButt_Click();
+            Logic.StudentsButt_Click(StudentsButt, StudView, StudSelectButt_Click);
         }
         private void TeacherButt_Click(object sender, EventArgs e)
         {
-            Logic.TeacherButt_Click();
+            Logic.TeacherButt_Click(TeacherButt, TeacherView, TeachSelectButt_Click);
         }
         private void GroupButt_Click(object sender, EventArgs e)
         {
-            Logic.GroupButt_Click();
+            Logic.GroupButt_Click(GroupButt, GroupView, GroupSelectButt_Click);
         }
         private void FacultButt_Click(object sender, EventArgs e)
         {
-            Logic.FacultButt_Click();
+            Logic.FacultButt_Click(FacultButt, FacultView, FacultSelectButt_Click);
         }
         public void StudSelectButt_Click(object sender, EventArgs e)
         {
@@ -40,7 +36,7 @@ namespace PL
             {
                 StudRed studRed = new StudRed(this, _MainLogic, 
                     Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value)), 
-                    Logic.StudentsButt_Click);
+                    StudentsButt_Click);
                 Hide();
                 studRed.Show();
             }
@@ -51,7 +47,7 @@ namespace PL
             {
                 TeachRed teachRed = new TeachRed(this, _MainLogic,
                     Logic.GetTeacher(Convert.ToInt32(TeacherView.SelectedRows[0].Cells[0].Value)),
-                    Logic.TeacherButt_Click);
+                    TeacherButt_Click);
                 Hide();
                 teachRed.Show();
             }
@@ -62,7 +58,7 @@ namespace PL
             {
                 GroupRed groupRed = new GroupRed(this, _MainLogic, 
                     Logic.GetGroup(Convert.ToInt32(GroupView.SelectedRows[0].Cells[0].Value)), 
-                    Logic.GroupButt_Click);
+                    GroupButt_Click);
                 Hide();
                 groupRed.Show();
             }
@@ -72,7 +68,8 @@ namespace PL
             if (FacultView.SelectedRows != null)
             {
                 FacultRed facultRed = new FacultRed(this, _MainLogic,
-                    Logic.GetFacult(Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].Value))); /////////////
+                    Logic.GetFacult(Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].Value)),
+                    FacultButt_Click);
                 Hide();
                 facultRed.Show();
             }

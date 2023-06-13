@@ -11,6 +11,7 @@ namespace BLL
         private List<Student> Students;
         private Student Headman;
         private Teacher Curator;
+
         public Group(int id, string name, int course, List<Student> students, Student headman, Teacher curator, Facult facult)
         {
             Id = id;

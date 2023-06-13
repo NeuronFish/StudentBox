@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using BLL;
 
@@ -8,18 +7,20 @@ namespace PL
     public partial class GroupRed : Form
     {
         private Form Father;
+        private MainLogic _MainLogic;
         private IGroupRedLogicable Logic;
-        private Action _OnClosed;
+        private EventHandler _OnClosed;
 
-        public GroupRed(Form father, MainLogic mainLogic, Group group, Action onClosed)
+        public GroupRed(Form father, MainLogic mainLogic, Group group, EventHandler onClosed)
         {
             InitializeComponent();
             Father = father;
-            Logic = new GroupRedLogic(group, mainLogic, StudView);
+            _MainLogic = mainLogic;
+            Logic = new GroupRedLogic(group, mainLogic);
+            InitializeData();
             _OnClosed = onClosed;
-            InitializeLogic();
         }
-        private void InitializeLogic()
+        private void InitializeData()
         {
             Logic.InitializeNameBox(NameBox);
             Logic.InitializeCuratorComboBox(CuratorComboBox);
@@ -63,6 +64,22 @@ namespace PL
         private void CourseComboBox_KeyDown(object sender, KeyEventArgs e)
         {
             Logic.ComboBox_KeyDown(sender, e);
+        }
+        private void DeleteButt_Click(object sender, EventArgs e)
+        {
+            Logic.DeleteButt_Click();
+            Close();
+        }
+        private void GroupRed_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _OnClosed(null, null);
+            Father.Show();
+            Father.Activate();
+            Dispose();
+        }
+        private void ExitButt_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

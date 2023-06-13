@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace BLL
@@ -8,145 +7,134 @@ namespace BLL
     {
         private Student _Student;
         private MainLogic _MainLogic;
-        private ComboBox GroupBox;
-        private List<TextBox> TextBoxes;
-        private enum TextBoxType
-        {
-            NameBox,
-            SurnameBox,
-            PatronymicBox,
-            FacultBox,
-            CuratorBox,
-            CourseBox
-        }
-        public StudRedLogic(Student student, MainLogic mainLogic, ComboBox groupBox, List<TextBox> textBoxes)
+        private EventHandler Current;
+        private Action GroupDataUpdate;
+
+        public StudRedLogic(Student student, MainLogic mainLogic, Action groupDataUpdate)
         {
             _Student = student;
             _MainLogic = mainLogic;
-            GroupBox = groupBox;
-            TextBoxes = textBoxes;
-            textBoxes[(int)TextBoxType.NameBox].Text = student.GetPersInfo()[0];
-            textBoxes[(int)TextBoxType.SurnameBox].Text = student.GetPersInfo()[1];
-            textBoxes[(int)TextBoxType.PatronymicBox].Text = student.GetPersInfo()[2];
-            InitializeGroupData();
-            InitializeGroupBox();
+            GroupDataUpdate = groupDataUpdate;
         }
-        private void InitializeGroupData()
+        public void InitializeNames(TextBox nameBox, TextBox surnameBox, TextBox patronymicBox)
+        {
+            nameBox.Text = _Student.GetPersInfo()[0];
+            surnameBox.Text = _Student.GetPersInfo()[1];
+            patronymicBox.Text = _Student.GetPersInfo()[2];
+        }
+        public void InitializeGroupData(TextBox facultBox, TextBox curatorBox, TextBox courseBox)
         {
             if (_Student.GetGroup() == null)
             {
-                TextBoxes[(int)TextBoxType.FacultBox].Text = "-";
-                TextBoxes[(int)TextBoxType.CuratorBox].Text = "-";
-                TextBoxes[(int)TextBoxType.CourseBox].Text = "-";
+                facultBox.Text = "-";
+                curatorBox.Text = "-";
+                courseBox.Text = "-";
             }
             else
             {
                 string[] curator = _Student.GetGroup().GetCurator().GetPersInfo();
-                TextBoxes[(int)TextBoxType.FacultBox].Text = _Student.GetGroup().GetFacult().GetName();
-                TextBoxes[(int)TextBoxType.CuratorBox].Text = curator[1] + " " + curator[0][0] + "." + curator[2][0] + ".";
-                TextBoxes[(int)TextBoxType.CourseBox].Text = Convert.ToString(_Student.GetGroup().GetCourse());
+                facultBox.Text = _Student.GetGroup().GetFacult().GetName();
+                curatorBox.Text = curator[1] + " " + curator[0][0] + "." + curator[2][0] + ".";
+                courseBox.Text = Convert.ToString(_Student.GetGroup().GetCourse());
             }
         }
-        private void InitializeGroupBox()
+        public void InitializeGroupComboBox(ComboBox groupBox)
         {
-            GroupBox.Items.Add("Відсутня");
+            groupBox.Items.Add("Відсутня");
             foreach (Group group in _MainLogic.GetGroupList())
-                GroupBox.Items.Add(group.GetName());
+                groupBox.Items.Add(group.GetName());
             if (_Student.GetGroup() == null)
-                GroupBox.SelectedItem = "Відсутня";
+                groupBox.SelectedItem = "Відсутня";
             else
-                GroupBox.SelectedItem = _Student.GetGroup().GetName();
+                groupBox.SelectedItem = _Student.GetGroup().GetName();
         }
-        public void EditButt_Click(object sender, EventArgs e)
+        private void SetEditTextBoxLogic(TextBox textBox, EventHandler textBoxChangedEvent)
         {
-            TextBox textBox;
-            Button butt = (Button)sender;
-            switch (butt.Name)
-            {
-                case "EditNameButt":
-                    textBox = TextBoxes[(int)TextBoxType.NameBox];
-                    break;
-                case "EditSurnameButt":
-                    textBox = TextBoxes[(int)TextBoxType.SurnameBox];
-                    break;
-                case "EditPatronymicButt":
-                    textBox = TextBoxes[(int)TextBoxType.PatronymicBox];
-                    break;
-                default:
-                    return;
-            }
             textBox.ReadOnly = false;
             textBox.Focus();
-            textBox.LostFocus += TextBoxChangedEvent;
+            textBox.LostFocus += textBoxChangedEvent;
             textBox.KeyDown += TextBox_KeyDown;
+            Current = textBoxChangedEvent;
         }
-        public void TextBoxChangedEvent(object sender, EventArgs e)
+        public void EditNameButt_Click(TextBox nameBox)
+        {
+            SetEditTextBoxLogic(nameBox, NameBoxChangedEvent);
+        }
+        public void EditSurnameButt_Click(TextBox surnameBox)
+        {
+            SetEditTextBoxLogic(surnameBox, SurnameBoxChangedEvent);
+        }
+        public void EditPatronymicButt_Click(TextBox patronymicBox)
+        {
+            SetEditTextBoxLogic(patronymicBox, PatronymicBoxChangedEvent);
+        }
+        public void NameBoxChangedEvent(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            switch (textBox.Name)
-            {
-                case "NameBox":
-                    if (textBox.Text == "")
-                        textBox.Text = _Student.GetPersInfo()[0];
-                    else
-                        _Student.ChangePersInfo(textBox.Text, _Student.GetPersInfo()[1], _Student.GetPersInfo()[2]);
-                    break;
-                case "SurnameBox":
-                    if (textBox.Text == "")
-                        textBox.Text = _Student.GetPersInfo()[1];
-                    else
-                        _Student.ChangePersInfo(_Student.GetPersInfo()[0], textBox.Text, _Student.GetPersInfo()[2]);
-                    break;
-                case "PatronymicBox":
-                    if (textBox.Text == "")
-                        textBox.Text = _Student.GetPersInfo()[2];
-                    else
-                        _Student.ChangePersInfo(_Student.GetPersInfo()[0], _Student.GetPersInfo()[1], textBox.Text);
-                    break;
-            }
-            textBox.LostFocus -= TextBoxChangedEvent;
+            if (textBox.Text == "")
+                textBox.Text = _Student.GetPersInfo()[0];
+            else
+                _Student.ChangePersInfo(textBox.Text, _Student.GetPersInfo()[1], _Student.GetPersInfo()[2]);
+            textBox.LostFocus -= NameBoxChangedEvent;
+            textBox.KeyDown -= TextBox_KeyDown;
+            textBox.ReadOnly = true;
+        }
+        public void SurnameBoxChangedEvent(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == "")
+                textBox.Text = _Student.GetPersInfo()[1];
+            else
+                _Student.ChangePersInfo(_Student.GetPersInfo()[0], textBox.Text, _Student.GetPersInfo()[2]);
+            textBox.LostFocus -= SurnameBoxChangedEvent;
+            textBox.KeyDown -= TextBox_KeyDown;
+            textBox.ReadOnly = true;
+        }
+        public void PatronymicBoxChangedEvent(object sender, EventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == "")
+                textBox.Text = _Student.GetPersInfo()[2];
+            else
+                _Student.ChangePersInfo(_Student.GetPersInfo()[0], _Student.GetPersInfo()[1], textBox.Text);
+            textBox.LostFocus -= PatronymicBoxChangedEvent;
             textBox.KeyDown -= TextBox_KeyDown;
             textBox.ReadOnly = true;
         }
         public void TextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-                TextBoxChangedEvent(sender, null);
+                Current(sender, null);
         }
-        public void ChangeGroupButt_Click(object sender, EventArgs e)
+        public void ChangeGroupButt_Click(ComboBox groupBox)
         {
-            GroupBox.Enabled = true;
-            GroupBox.Focus();
-            GroupBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
-            GroupBox.LostFocus += GroupComboBox_LostFocus;
+            groupBox.Enabled = true;
+            groupBox.Focus();
+            groupBox.SelectedIndexChanged += GroupComboBox_SelectedIndexChanged;
+            groupBox.LostFocus += GroupComboBox_SelectedIndexChanged;
         }
         public void GroupComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_MainLogic.GetGroupList().Find(item => item.GetName() == GroupBox.Text) == null && GroupBox.Text != "Відсутня")
-                GroupBox.SelectedItem = _Student.GetGroup().GetName();
+            ComboBox groupBox = (ComboBox)sender;
+            if (_MainLogic.GetGroupList().Find(item => item.GetName() == groupBox.Text) == null && groupBox.Text != "Відсутня")
+                groupBox.SelectedItem = _Student.GetGroup().GetName();
             else
             {
                 if (_Student.GetGroup() != null)
                     _Student.GetGroup().RemoveStudent(_Student);
-                if (GroupBox.Text == "Відсутня")
+                if (groupBox.Text == "Відсутня")
                     _Student.ChangeGroup(null);
                 else
                 {
-                    Group newGroup = _MainLogic.GetGroupList().Find(item => item.GetName() == GroupBox.Text);
+                    Group newGroup = _MainLogic.GetGroupList().Find(item => item.GetName() == groupBox.Text);
                     newGroup.AddStudent(_Student);
                     _Student.ChangeGroup(newGroup);
                 }
-                InitializeGroupData();
-                GroupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-                GroupBox.SelectedIndexChanged -= GroupComboBox_LostFocus;
-                GroupBox.Enabled = false;
+                groupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
+                groupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
+                groupBox.Enabled = false;
+                GroupDataUpdate();
             }
-        }
-        public void GroupComboBox_LostFocus(object sender, EventArgs e)
-        {
-            GroupBox.SelectedIndexChanged -= GroupComboBox_SelectedIndexChanged;
-            GroupBox.LostFocus -= GroupComboBox_LostFocus;
-            GroupBox.Enabled = false;
         }
         public void GroupComboBox_KeyDown(object sender, KeyEventArgs e)
         {

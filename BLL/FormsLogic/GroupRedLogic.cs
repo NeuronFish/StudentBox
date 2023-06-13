@@ -7,21 +7,12 @@ namespace BLL
     {
         private Group _Group;
         private MainLogic _MainLogic;
-        private DataGridView StudView;
         private EventHandler Current;
-        private enum ComboBoxType
-        {
-            Curator,
-            Headman,
-            Facult,
-            Course
-        }
 
-        public GroupRedLogic(Group group, MainLogic mainLogic, DataGridView studView)
+        public GroupRedLogic(Group group, MainLogic mainLogic)
         {
             _Group = group;
             _MainLogic = mainLogic;
-            StudView = studView;
         }
         public void InitializeNameBox(TextBox textBox)
         {
@@ -210,6 +201,18 @@ namespace BLL
         {
             if (e.KeyCode == Keys.Enter)
                 Current(sender, null);
+        }
+        public void DeleteButt_Click()
+        {
+            foreach (Student stud in _Group.GetStudentList())
+                stud.ChangeGroup(null);
+            if (_Group.GetCurator() != null)
+            {
+                _Group.GetCurator().ChangeCuratorGroup(null);
+                _Group.ChangeCurator(null);
+            }
+            _Group.GetFacult().RemoveGroup(_Group);
+            _MainLogic.GetGroupList().Remove(_Group);
         }
     }
 }

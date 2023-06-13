@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using BLL;
 
@@ -9,36 +8,46 @@ namespace PL
     {
         private Form Father;
         private ITeachRedLogicable Logic;
-        private Action _OnClosed;
+        private EventHandler _OnClosed;
 
-        public TeachRed(Form father, MainLogic mainLogic, Teacher teacher, Action onClosed)
+        public TeachRed(Form father, MainLogic mainLogic, Teacher teacher, EventHandler onClosed)
         {
             InitializeComponent();
             Father = father;
-            Logic = new TeachRedLogic(teacher, mainLogic, FacultComboBox, CuratorComboBox,
-                new List<TextBox> { NameBox, SurnameBox, PatronymicBox, DeanBox, PositionBox });
+            Logic = new TeachRedLogic(teacher, mainLogic, InitializeFacultData);
+            InitializeData();
             _OnClosed = onClosed;
             ExitButt.Focus();
         }
+        private void InitializeFacultData()
+        {
+            Logic.InitializeFacultData(FacultComboBox, DeanBox);
+        }
+        private void InitializeData()
+        {
+            Logic.InitializeData(NameBox, SurnameBox, PatronymicBox, PositionBox);
+            Logic.InitializeComboBoxes(FacultComboBox, CuratorComboBox);
+            InitializeFacultData();
+        }
         private void EditSurnameButt_Click(object sender, EventArgs e)
         {
-            Logic.EditButt_Click(sender, e);
+            Logic.EditSurnameButt_Click(SurnameBox);
         }
         private void EditNameButt_Click(object sender, EventArgs e)
         {
-            Logic.EditButt_Click(sender, e);
+            Logic.EditNameButt_Click(NameBox);
         }
         private void EditPatronymicButt_Click(object sender, EventArgs e)
         {
-            Logic.EditButt_Click(sender, e);
+            Logic.EditPatronymicButt_Click(PatronymicBox);
         }
         private void EditPositionButt_Click(object sender, EventArgs e)
         {
-            Logic.EditButt_Click(sender, e);
+            Logic.EditPositionButt_Click(PositionBox);
         }
         private void EditFacultButt_Click(object sender, EventArgs e)
         {
-            Logic.EditComboBoxButt_Click(sender, e);
+            Logic.EditFacultButt_Click(FacultComboBox);
         }
         private void FacultComboBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -46,7 +55,7 @@ namespace PL
         }
         private void EditCuratorButt_Click(object sender, EventArgs e)
         {
-            Logic.EditComboBoxButt_Click(sender, e);
+            Logic.EditCuratorButt_Click(CuratorComboBox);
         }
         private void CuratorComboBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -59,7 +68,7 @@ namespace PL
         }
         private void TeachRed_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _OnClosed.DynamicInvoke();
+            _OnClosed(null, null);
             Father.Show();
             Father.Activate();
             Dispose();
