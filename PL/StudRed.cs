@@ -10,6 +10,7 @@ namespace PL
         private IStudRedLogicable Logic;
         private EventHandler _OnClosed;
 
+        //Конструктор для відкриття студента
         public StudRed(Form father, MainLogic mainLogic, Student stud, EventHandler onClosed)
         {
             InitializeComponent();
@@ -17,7 +18,35 @@ namespace PL
             Logic = new StudRedLogic(stud, mainLogic, InitializeGroupData);
             InitializeData();
             _OnClosed = onClosed;
-            ExitButt.Focus();
+        }
+        //Конструктор для створення нового студента
+        public StudRed(Form father, MainLogic mainLogic, EventHandler onClosed)
+        {
+            InitializeComponent();
+            Father = father;
+            Logic = new StudRedLogic(mainLogic, InitializeGroupData);
+            InitializeData();
+            _OnClosed = onClosed;
+            CreateSwitch();
+        }
+        //Конструктор для створення нового студента в группі
+        public StudRed(Form father, Group group, MainLogic mainLogic, EventHandler onClosed)
+        {
+            InitializeComponent();
+            Father = father;
+            Logic = new StudRedLogic(mainLogic, group);
+            InitializeData();
+            _OnClosed = onClosed;
+            ChangeGroupButt.Visible = false;
+            ChangeGroupButt.Enabled = false;
+            CreateSwitch();
+        }
+        private void CreateSwitch()
+        {
+            DeleteButt.Visible = false;
+            DeleteButt.Enabled = false;
+            CreateButt.Visible = true;
+            CreateButt.Enabled = true;
         }
         private void InitializeGroupData()
         {
@@ -64,6 +93,14 @@ namespace PL
         private void ExitButt_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void CreateButt_Click(object sender, EventArgs e)
+        {
+            if (Logic.CreateButt_Click())
+                Close();
+            else
+                MessageBox.Show("П.І.Б. повинний бути заповнений", "Помилка", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

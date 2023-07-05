@@ -65,5 +65,21 @@ namespace BLL
         {
             return Facults;
         }
+        public void AddStudent(Student stud)
+        {
+            Students.Add(stud);
+        }
+        public void AddTeacher(Teacher teacher)
+        {
+            Teachers.Add(teacher);
+        }
+        public void AddGroup(Group group)
+        {
+            Groups.Add(group);
+        }
+        public void AddFacult(Facult facult)
+        {
+            Facults.Add(facult);
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BLL
@@ -9,12 +10,30 @@ namespace BLL
         private MainLogic _MainLogic;
         private EventHandler Current;
         private Action FacultDataUpdate;
+        private bool FacultLock = false;
 
+        //Конструктор для відкриття вчителя
         public TeachRedLogic(Teacher teacher, MainLogic mainLogic, Action facultDataUpdate)
         {
             _Teacher = teacher;
             _MainLogic = mainLogic;
             FacultDataUpdate = facultDataUpdate;
+        }
+        //Конструктор для створення нового вчителя
+        public TeachRedLogic(MainLogic mainLogic, Action facultDataUpdate)
+        {
+            _Teacher = new Teacher(mainLogic.GetTeacherList().Max(teach => teach.GetId()) + 1, "-", "-", "-", "-",
+                null, null);
+            _MainLogic = mainLogic;
+            FacultDataUpdate = facultDataUpdate;
+        }
+        //Конструктор для створення нового вчителя в факультеті
+        public TeachRedLogic(MainLogic mainLogic, Facult facult)
+        {
+            _Teacher = new Teacher(mainLogic.GetTeacherList().Max(teach => teach.GetId()) + 1, "-", "-", "-", "-",
+            facult, null);
+            _MainLogic = mainLogic;
+            FacultLock = true;
         }
         public void InitializeData(TextBox nameBox, TextBox surnameBox, TextBox patronymicBox, TextBox positionBox)
         {
@@ -198,6 +217,18 @@ namespace BLL
             if (_Teacher.GetCuratorGroup() != null)
                 _Teacher.GetCuratorGroup().ChangeCurator(null);
             _MainLogic.GetTeacherList().Remove(_Teacher);
+        }
+        public bool CreateButt_Click()
+        {
+            foreach (string info in _Teacher.GetPersInfo())
+                if (info == "-")
+                    return false;
+            if (_Teacher.GetPosition() == "-")
+                return false;
+            _MainLogic.AddTeacher(_Teacher);
+            if (FacultLock)
+                _Teacher.GetFacult().AddTeacher(_Teacher);
+            return true;
         }
     }
 }

@@ -13,5 +13,6 @@ namespace BLL
         void ChangeGroupButt_Click(ComboBox groupBox);
         void GroupComboBox_KeyDown(object sender, KeyEventArgs e);
         void DeleteButt_Click();
+        bool CreateButt_Click();
     }
 }

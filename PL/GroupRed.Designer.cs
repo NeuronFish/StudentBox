@@ -52,6 +52,9 @@ namespace PL
             this.label6 = new System.Windows.Forms.Label();
             this.ExitButt = new System.Windows.Forms.Button();
             this.DeleteButt = new System.Windows.Forms.Button();
+            this.AddButt = new System.Windows.Forms.Button();
+            this.CreateButt = new System.Windows.Forms.Button();
+            this.SelectButt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.StudView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -286,11 +289,49 @@ namespace PL
             this.DeleteButt.UseVisualStyleBackColor = true;
             this.DeleteButt.Click += new System.EventHandler(this.DeleteButt_Click);
             // 
+            // AddButt
+            // 
+            this.AddButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddButt.Location = new System.Drawing.Point(607, 296);
+            this.AddButt.Name = "AddButt";
+            this.AddButt.Size = new System.Drawing.Size(181, 38);
+            this.AddButt.TabIndex = 49;
+            this.AddButt.Text = "Додати студента";
+            this.AddButt.UseVisualStyleBackColor = true;
+            this.AddButt.Click += new System.EventHandler(this.StudAddButt_Click);
+            // 
+            // CreateButt
+            // 
+            this.CreateButt.Enabled = false;
+            this.CreateButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateButt.Location = new System.Drawing.Point(607, 340);
+            this.CreateButt.Name = "CreateButt";
+            this.CreateButt.Size = new System.Drawing.Size(181, 38);
+            this.CreateButt.TabIndex = 50;
+            this.CreateButt.Text = "Додати групу";
+            this.CreateButt.UseVisualStyleBackColor = true;
+            this.CreateButt.Visible = false;
+            this.CreateButt.Click += new System.EventHandler(this.CreateButt_Click);
+            // 
+            // SelectButt
+            // 
+            this.SelectButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectButt.Location = new System.Drawing.Point(607, 252);
+            this.SelectButt.Name = "SelectButt";
+            this.SelectButt.Size = new System.Drawing.Size(181, 38);
+            this.SelectButt.TabIndex = 51;
+            this.SelectButt.Text = "Обрати студента";
+            this.SelectButt.UseVisualStyleBackColor = true;
+            this.SelectButt.Click += new System.EventHandler(this.StudSelectButt_Click);
+            // 
             // GroupRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SelectButt);
+            this.Controls.Add(this.CreateButt);
+            this.Controls.Add(this.AddButt);
             this.Controls.Add(this.DeleteButt);
             this.Controls.Add(this.ExitButt);
             this.Controls.Add(this.label6);
@@ -344,5 +385,8 @@ namespace PL
         private System.Windows.Forms.DataGridViewTextBoxColumn Patronymic;
         private System.Windows.Forms.Button ExitButt;
         private System.Windows.Forms.Button DeleteButt;
+        private System.Windows.Forms.Button AddButt;
+        private System.Windows.Forms.Button CreateButt;
+        private System.Windows.Forms.Button SelectButt;
     }
 }

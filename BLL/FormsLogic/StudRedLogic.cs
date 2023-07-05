@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BLL
@@ -9,12 +10,30 @@ namespace BLL
         private MainLogic _MainLogic;
         private EventHandler Current;
         private Action GroupDataUpdate;
+        private bool GroupLock = false;
 
+        //Конструктор для відкриття студента
         public StudRedLogic(Student student, MainLogic mainLogic, Action groupDataUpdate)
         {
             _Student = student;
             _MainLogic = mainLogic;
             GroupDataUpdate = groupDataUpdate;
+        }
+        //Конструктор для створення нового студента
+        public StudRedLogic(MainLogic mainLogic, Action groupDataUpdate)
+        {
+            _Student = new Student(mainLogic.GetStudentList().Max(stud => stud.GetId()) + 1, "-", "-", "-",
+                null);
+            _MainLogic = mainLogic;
+            GroupDataUpdate = groupDataUpdate;
+        }
+        //Конструктор для створення нового студента в группі
+        public StudRedLogic(MainLogic mainLogic, Group group)
+        {
+            _Student = new Student(mainLogic.GetStudentList().Max(stud => stud.GetId()) + 1, "-", "-", "-",
+                group);
+            GroupLock = true;
+            _MainLogic = mainLogic;
         }
         public void InitializeNames(TextBox nameBox, TextBox surnameBox, TextBox patronymicBox)
         {
@@ -32,9 +51,17 @@ namespace BLL
             }
             else
             {
-                string[] curator = _Student.GetGroup().GetCurator().GetPersInfo();
-                facultBox.Text = _Student.GetGroup().GetFacult().GetName();
-                curatorBox.Text = curator[1] + " " + curator[0][0] + "." + curator[2][0] + ".";
+                if (_Student.GetGroup().GetCurator() != null)
+                {
+                    string[] curator = _Student.GetGroup().GetCurator().GetPersInfo();
+                    curatorBox.Text = curator[1] + " " + curator[0][0] + "." + curator[2][0] + ".";
+                }
+                else
+                    curatorBox.Text = "Відсутній";
+                if (_Student.GetGroup().GetFacult() != null)
+                    facultBox.Text = _Student.GetGroup().GetFacult().GetName();
+                else
+                    facultBox.Text = "-";
                 courseBox.Text = Convert.ToString(_Student.GetGroup().GetCourse());
             }
         }
@@ -144,10 +171,22 @@ namespace BLL
         public void DeleteButt_Click()
         {
             if (_Student.GetGroup() != null)
+            {
                 _Student.GetGroup().RemoveStudent(_Student);
-            if (_Student.GetGroup().GetHeadman() == _Student)
-                _Student.GetGroup().ChangeHeadman(null);
+                if (_Student.GetGroup().GetHeadman() == _Student)
+                    _Student.GetGroup().ChangeHeadman(null);
+            }
             _MainLogic.GetStudentList().Remove(_Student);
+        }
+        public bool CreateButt_Click()
+        {
+            foreach (string info in _Student.GetPersInfo())
+                if (info == "-")
+                    return false;
+            _MainLogic.AddStudent(_Student);
+            if (GroupLock)
+                _Student.GetGroup().AddStudent(_Student);
+            return true;
         }
     }
 }

@@ -21,7 +21,6 @@ namespace PL
             this.TeacherButt = new System.Windows.Forms.Button();
             this.GroupButt = new System.Windows.Forms.Button();
             this.FacultButt = new System.Windows.Forms.Button();
-            this.PersonButt = new System.Windows.Forms.Button();
             this.StudView = new System.Windows.Forms.DataGridView();
             this.StudNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudInfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -55,7 +54,7 @@ namespace PL
             // 
             // StudentsButt
             // 
-            this.StudentsButt.Location = new System.Drawing.Point(86, 304);
+            this.StudentsButt.Location = new System.Drawing.Point(12, 304);
             this.StudentsButt.Name = "StudentsButt";
             this.StudentsButt.Size = new System.Drawing.Size(75, 23);
             this.StudentsButt.TabIndex = 1;
@@ -65,7 +64,7 @@ namespace PL
             // 
             // TeacherButt
             // 
-            this.TeacherButt.Location = new System.Drawing.Point(160, 304);
+            this.TeacherButt.Location = new System.Drawing.Point(86, 304);
             this.TeacherButt.Name = "TeacherButt";
             this.TeacherButt.Size = new System.Drawing.Size(75, 23);
             this.TeacherButt.TabIndex = 2;
@@ -75,7 +74,7 @@ namespace PL
             // 
             // GroupButt
             // 
-            this.GroupButt.Location = new System.Drawing.Point(234, 304);
+            this.GroupButt.Location = new System.Drawing.Point(160, 304);
             this.GroupButt.Name = "GroupButt";
             this.GroupButt.Size = new System.Drawing.Size(75, 23);
             this.GroupButt.TabIndex = 3;
@@ -85,22 +84,13 @@ namespace PL
             // 
             // FacultButt
             // 
-            this.FacultButt.Location = new System.Drawing.Point(308, 304);
+            this.FacultButt.Location = new System.Drawing.Point(234, 304);
             this.FacultButt.Name = "FacultButt";
             this.FacultButt.Size = new System.Drawing.Size(82, 23);
             this.FacultButt.TabIndex = 4;
             this.FacultButt.Text = "Факультети";
             this.FacultButt.UseVisualStyleBackColor = true;
             this.FacultButt.Click += new System.EventHandler(this.FacultButt_Click);
-            // 
-            // PersonButt
-            // 
-            this.PersonButt.Location = new System.Drawing.Point(12, 304);
-            this.PersonButt.Name = "PersonButt";
-            this.PersonButt.Size = new System.Drawing.Size(75, 23);
-            this.PersonButt.TabIndex = 5;
-            this.PersonButt.Text = "Люди";
-            this.PersonButt.UseVisualStyleBackColor = true;
             // 
             // StudView
             // 
@@ -330,7 +320,7 @@ namespace PL
             this.AddButt.Name = "AddButt";
             this.AddButt.Size = new System.Drawing.Size(116, 59);
             this.AddButt.TabIndex = 20;
-            this.AddButt.Text = "Додати викладача";
+            this.AddButt.Text = "Додати студента";
             this.AddButt.UseVisualStyleBackColor = true;
             // 
             // MainWindow
@@ -344,7 +334,6 @@ namespace PL
             this.Controls.Add(this.GroupView);
             this.Controls.Add(this.TeacherView);
             this.Controls.Add(this.StudView);
-            this.Controls.Add(this.PersonButt);
             this.Controls.Add(this.FacultButt);
             this.Controls.Add(this.GroupButt);
             this.Controls.Add(this.TeacherButt);
@@ -361,7 +350,6 @@ namespace PL
         private System.Windows.Forms.Button TeacherButt;
         private System.Windows.Forms.Button GroupButt;
         private System.Windows.Forms.Button FacultButt;
-        private System.Windows.Forms.Button PersonButt;
         private System.Windows.Forms.DataGridView StudView;
         private DataGridView TeacherView;
         private DataGridView GroupView;

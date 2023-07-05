@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace BLL
 {
@@ -16,6 +17,9 @@ namespace BLL
         void ChangeFacultButt_Click(ComboBox comboBox);
         void ChangeCourseButt_Click(ComboBox comboBox);
         void ComboBox_KeyDown(object sender, KeyEventArgs e);
-        void DeleteButt_Click();
+        void DeleteButt_Click(object sender, EventArgs e);
+        Group GetGroup();
+        bool CreateButt_Click();
+        Student GetStudent(int id);
     }
 }

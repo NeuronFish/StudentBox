@@ -11,6 +11,7 @@ namespace PL
         private IFacultRedLogicable Logic;
         private EventHandler _OnClosed;
 
+        //Конструктор для відкриття факультету
         public FacultRed(Form father, MainLogic mainLogic, Facult facult, EventHandler onClosed)
         {
             InitializeComponent();
@@ -20,6 +21,24 @@ namespace PL
             Logic.InitializeData(NameBox, DeanComboBox);
             StudentsButt_Click(null, null);
             _OnClosed = onClosed;
+        }
+        //Конструктор для створення нового факультету
+        public FacultRed(Form father, MainLogic mainLogic, EventHandler onClosed)
+        {
+            InitializeComponent();
+            Father = father;
+            _MainLogic = mainLogic;
+            Logic = new FacultRedLogic(mainLogic, SelectButt);
+            Logic.InitializeData(NameBox, DeanComboBox);
+            StudentsButt_Click(null, null);
+            _OnClosed = onClosed;
+            DeleteButt.Visible = false;
+            DeleteButt.Enabled = false;
+            CreateButt.Visible = true;
+            CreateButt.Enabled = true;
+            SelectButt.Enabled = false;
+            AddTeachButt.Enabled = false;
+            AddGroupButt.Enabled = false;
         }
         private void EditNameButt_Click(object sender, EventArgs e)
         {
@@ -47,7 +66,7 @@ namespace PL
         }
         public void StudSelectButt_Click(object sender, EventArgs e)
         {
-            if (FacultStudView.SelectedRows != null)
+            if (FacultStudView.SelectedRows.Count != 0)
             {
                 StudRed studRed = new StudRed(this, _MainLogic,
                     Logic.GetStudent(Convert.ToInt32(FacultStudView.SelectedRows[0].Cells[0].Value)), StudentsButt_Click);
@@ -57,7 +76,7 @@ namespace PL
         }
         public void TeachSelectButt_Click(object sender, EventArgs e)
         {
-            if (FacultTeacherView.SelectedRows != null)
+            if (FacultTeacherView.SelectedRows.Count != 0)
             {
                 TeachRed teachRed = new TeachRed(this, _MainLogic,
                     Logic.GetTeacher(Convert.ToInt32(FacultTeacherView.SelectedRows[0].Cells[0].Value)), TeacherButt_Click);
@@ -65,15 +84,27 @@ namespace PL
                 teachRed.Show();
             }
         }
+        public void TeachAddButt_Click(object sender, EventArgs e)
+        {
+            TeachRed teachRed = new TeachRed(this, _MainLogic, Logic.GetFacult(), TeacherButt_Click);
+            Hide();
+            teachRed.Show();
+        }
         public void GroupSelectButt_Click(object sender, EventArgs e)
         {
-            if (FacultGroupView.SelectedRows != null)
+            if (FacultGroupView.SelectedRows.Count != 0)
             {
                 GroupRed groupRed = new GroupRed(this, _MainLogic,
                     Logic.GetGroup(Convert.ToInt32(FacultGroupView.SelectedRows[0].Cells[0].Value)), GroupButt_Click);
                 Hide();
                 groupRed.Show();
             }
+        }
+        public void GroupAddButt_Click(object sender, EventArgs e)
+        {
+            GroupRed groupRed = new GroupRed(this, _MainLogic, Logic.GetFacult(), GroupButt_Click);
+            Hide();
+            groupRed.Show();
         }
         private void DeleteButt_Click(object sender, EventArgs e)
         {
@@ -90,6 +121,14 @@ namespace PL
         private void ExitButt_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void CreateButt_Click(object sender, EventArgs e)
+        {
+            if (Logic.CreateButt_Click())
+                Close();
+            else
+                MessageBox.Show("Назва факультету повинна бути задана", "Помилка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

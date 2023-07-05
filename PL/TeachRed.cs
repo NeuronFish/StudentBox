@@ -10,6 +10,7 @@ namespace PL
         private ITeachRedLogicable Logic;
         private EventHandler _OnClosed;
 
+        //Конструктор для відкриття вчителя
         public TeachRed(Form father, MainLogic mainLogic, Teacher teacher, EventHandler onClosed)
         {
             InitializeComponent();
@@ -17,7 +18,37 @@ namespace PL
             Logic = new TeachRedLogic(teacher, mainLogic, InitializeFacultData);
             InitializeData();
             _OnClosed = onClosed;
-            ExitButt.Focus();
+        }
+        //Конструктор для створення нового вчителя
+        public TeachRed(Form father, MainLogic mainLogic, EventHandler onClosed)
+        {
+            InitializeComponent();
+            Father = father;
+            Logic = new TeachRedLogic(mainLogic, InitializeFacultData);
+            InitializeData();
+            _OnClosed = onClosed;
+            CreateSwitch();
+        }
+        //Конструктор для створення нового вчителя в факультеті
+        public TeachRed(Form father, MainLogic mainLogic, Facult facult, EventHandler onClosed)
+        {
+            InitializeComponent();
+            Father = father;
+            Logic = new TeachRedLogic(mainLogic, facult);
+            InitializeData();
+            _OnClosed = onClosed;
+            EditFacultButt.Visible = false;
+            EditFacultButt.Enabled = false;
+            EditCuratorButt.Visible = false;
+            EditCuratorButt.Enabled = false;
+            CreateSwitch();
+        }
+        private void CreateSwitch()
+        {
+            DeleteButt.Visible = false;
+            DeleteButt.Enabled = false;
+            CreateButt.Visible = true;
+            CreateButt.Enabled = true;
         }
         private void InitializeFacultData()
         {
@@ -76,6 +107,14 @@ namespace PL
         private void ExitButt_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        private void CreateButt_Click(object sender, EventArgs e)
+        {
+            if (Logic.CreateButt_Click())
+                Close();
+            else
+                MessageBox.Show("П.І.Б. та посада повинні бути заповнені", "Помилка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BLL
@@ -12,9 +13,18 @@ namespace BLL
         private DataGridView CurrentView;
         private EventHandler CurrentHandler;
 
+        //Конструктор для відкриття факультету
         public FacultRedLogic(Facult facult, MainLogic mainLogic, Button selectButt)
         {
             _Facult = facult;
+            _MainLogic = mainLogic;
+            SelectButt = selectButt;
+        }
+        //Конструктор для створення нового факультету
+        public FacultRedLogic(MainLogic mainLogic, Button selectButt)
+        {
+            _Facult = new Facult(mainLogic.GetFacultList().Max(facult => facult.GetId()) + 1, "-", null,
+                new System.Collections.Generic.List<Group>(), new System.Collections.Generic.List<Teacher>());
             _MainLogic = mainLogic;
             SelectButt = selectButt;
         }
@@ -24,8 +34,11 @@ namespace BLL
             deanBox.Items.Add("Відсутній");
             foreach (Teacher teach in _MainLogic.GetTeacherList())
             {
-                string[] info = teach.GetPersInfo();
-                deanBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
+                if (!_MainLogic.GetFacultList().Exists(facult => facult.GetDean() == teach) || _Facult.GetDean() == teach)
+                {
+                    string[] info = teach.GetPersInfo();
+                    deanBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
+                }
             }
             if (_Facult.GetDean() == null)
                 deanBox.SelectedItem = "Відсутній";
@@ -156,6 +169,10 @@ namespace BLL
                     curator, headman });
             }
         }
+        public Facult GetFacult()
+        {
+            return _Facult;
+        }
         public Student GetStudent(int id)
         {
             foreach (Group group in _Facult.GetGroups())
@@ -181,6 +198,13 @@ namespace BLL
             foreach (Teacher teach in _Facult.GetTeachers())
                 teach.ChangeFacult(null);
             _MainLogic.GetFacultList().Remove(_Facult);
+        }
+        public bool CreateButt_Click()
+        {
+            if (_Facult.GetName() == "-")
+                return false;
+            _MainLogic.AddFacult(_Facult);
+            return true;
         }
     }
 }

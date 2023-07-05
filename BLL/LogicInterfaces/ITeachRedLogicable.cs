@@ -16,5 +16,6 @@ namespace BLL
         void EditCuratorButt_Click(ComboBox curatorBox);
         void ComboBox_KeyDown(object sender, KeyEventArgs e);
         void DeleteButt_Click();
+        bool CreateButt_Click();
     }
 }

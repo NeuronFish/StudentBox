@@ -11,28 +11,32 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            Logic = new MainWindowLogic(_MainLogic, SelectButt);
+            Logic = new MainWindowLogic(_MainLogic, SelectButt, AddButt);
             StudentsButt_Click(null, null);
         }
         private void StudentsButt_Click(object sender, EventArgs e)
         {
-            Logic.StudentsButt_Click(StudentsButt, StudView, StudSelectButt_Click);
+            Logic.StudentsButt_Click(StudentsButt, StudView, StudSelectButt_Click, StudAddButt_Click);
+            AddButt.Text = "Додати студента";
         }
         private void TeacherButt_Click(object sender, EventArgs e)
         {
-            Logic.TeacherButt_Click(TeacherButt, TeacherView, TeachSelectButt_Click);
+            Logic.TeacherButt_Click(TeacherButt, TeacherView, TeachSelectButt_Click, TeachAddButt_Click);
+            AddButt.Text = "Додати викладача";
         }
         private void GroupButt_Click(object sender, EventArgs e)
         {
-            Logic.GroupButt_Click(GroupButt, GroupView, GroupSelectButt_Click);
+            Logic.GroupButt_Click(GroupButt, GroupView, GroupSelectButt_Click, GroupAddButt_Click);
+            AddButt.Text = "Додати групу";
         }
         private void FacultButt_Click(object sender, EventArgs e)
         {
-            Logic.FacultButt_Click(FacultButt, FacultView, FacultSelectButt_Click);
+            Logic.FacultButt_Click(FacultButt, FacultView, FacultSelectButt_Click, FacultAddButt_Click);
+            AddButt.Text = "Додати факультет";
         }
         public void StudSelectButt_Click(object sender, EventArgs e)
         {
-            if (StudView.SelectedRows != null)
+            if (StudView.SelectedRows.Count != 0)
             {
                 StudRed studRed = new StudRed(this, _MainLogic, 
                     Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value)), 
@@ -41,9 +45,15 @@ namespace PL
                 studRed.Show();
             }
         }
+        public void StudAddButt_Click(object sender, EventArgs e)
+        {
+            StudRed studRed = new StudRed(this, _MainLogic, StudentsButt_Click);
+            Hide();
+            studRed.Show();
+        }
         public void TeachSelectButt_Click(object sender, EventArgs e)
         {
-            if (TeacherView.SelectedRows != null)
+            if (TeacherView.SelectedRows.Count != 0)
             {
                 TeachRed teachRed = new TeachRed(this, _MainLogic,
                     Logic.GetTeacher(Convert.ToInt32(TeacherView.SelectedRows[0].Cells[0].Value)),
@@ -52,9 +62,15 @@ namespace PL
                 teachRed.Show();
             }
         }
+        public void TeachAddButt_Click(object sender, EventArgs e)
+        {
+            TeachRed teachRed = new TeachRed(this, _MainLogic, TeacherButt_Click);
+            Hide();
+            teachRed.Show();
+        }
         public void GroupSelectButt_Click(object sender, EventArgs e)
         {
-            if (GroupView.SelectedRows != null)
+            if (GroupView.SelectedRows.Count != 0)
             {
                 GroupRed groupRed = new GroupRed(this, _MainLogic, 
                     Logic.GetGroup(Convert.ToInt32(GroupView.SelectedRows[0].Cells[0].Value)), 
@@ -63,9 +79,15 @@ namespace PL
                 groupRed.Show();
             }
         }
+        public void GroupAddButt_Click(object sender, EventArgs e)
+        {
+            GroupRed groupRed = new GroupRed(this, _MainLogic, GroupButt_Click);
+            Hide();
+            groupRed.Show();
+        }
         public void FacultSelectButt_Click(object sender, EventArgs e)
         {
-            if (FacultView.SelectedRows != null)
+            if (FacultView.SelectedRows.Count != 0)
             {
                 FacultRed facultRed = new FacultRed(this, _MainLogic,
                     Logic.GetFacult(Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].Value)),
@@ -73,6 +95,12 @@ namespace PL
                 Hide();
                 facultRed.Show();
             }
+        }
+        public void FacultAddButt_Click(object sender, EventArgs e)
+        {
+            FacultRed facultRed = new FacultRed(this, _MainLogic, FacultButt_Click);
+            Hide();
+            facultRed.Show();
         }
     }
 }

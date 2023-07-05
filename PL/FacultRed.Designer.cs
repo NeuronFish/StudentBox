@@ -57,6 +57,9 @@ namespace PL
             this.DeanComboBox = new System.Windows.Forms.ComboBox();
             this.DeleteButt = new System.Windows.Forms.Button();
             this.ExitButt = new System.Windows.Forms.Button();
+            this.AddTeachButt = new System.Windows.Forms.Button();
+            this.AddGroupButt = new System.Windows.Forms.Button();
+            this.CreateButt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FacultStudView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FacultTeacherView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FacultGroupView)).BeginInit();
@@ -333,11 +336,49 @@ namespace PL
             this.ExitButt.UseVisualStyleBackColor = true;
             this.ExitButt.Click += new System.EventHandler(this.ExitButt_Click);
             // 
+            // AddTeachButt
+            // 
+            this.AddTeachButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddTeachButt.Location = new System.Drawing.Point(642, 132);
+            this.AddTeachButt.Name = "AddTeachButt";
+            this.AddTeachButt.Size = new System.Drawing.Size(116, 59);
+            this.AddTeachButt.TabIndex = 51;
+            this.AddTeachButt.Text = "Додати викладача";
+            this.AddTeachButt.UseVisualStyleBackColor = true;
+            this.AddTeachButt.Click += new System.EventHandler(this.TeachAddButt_Click);
+            // 
+            // AddGroupButt
+            // 
+            this.AddGroupButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.AddGroupButt.Location = new System.Drawing.Point(642, 197);
+            this.AddGroupButt.Name = "AddGroupButt";
+            this.AddGroupButt.Size = new System.Drawing.Size(116, 59);
+            this.AddGroupButt.TabIndex = 52;
+            this.AddGroupButt.Text = "Додати групу";
+            this.AddGroupButt.UseVisualStyleBackColor = true;
+            this.AddGroupButt.Click += new System.EventHandler(this.GroupAddButt_Click);
+            // 
+            // CreateButt
+            // 
+            this.CreateButt.Enabled = false;
+            this.CreateButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateButt.Location = new System.Drawing.Point(366, 350);
+            this.CreateButt.Name = "CreateButt";
+            this.CreateButt.Size = new System.Drawing.Size(253, 38);
+            this.CreateButt.TabIndex = 53;
+            this.CreateButt.Text = "Додати факультет";
+            this.CreateButt.UseVisualStyleBackColor = true;
+            this.CreateButt.Visible = false;
+            this.CreateButt.Click += new System.EventHandler(this.CreateButt_Click);
+            // 
             // FacultRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 411);
+            this.Controls.Add(this.CreateButt);
+            this.Controls.Add(this.AddGroupButt);
+            this.Controls.Add(this.AddTeachButt);
             this.Controls.Add(this.DeleteButt);
             this.Controls.Add(this.ExitButt);
             this.Controls.Add(this.DeanComboBox);
@@ -394,5 +435,8 @@ namespace PL
         private System.Windows.Forms.ComboBox DeanComboBox;
         private System.Windows.Forms.Button DeleteButt;
         private System.Windows.Forms.Button ExitButt;
+        private System.Windows.Forms.Button AddTeachButt;
+        private System.Windows.Forms.Button AddGroupButt;
+        private System.Windows.Forms.Button CreateButt;
     }
 }

@@ -49,6 +49,7 @@ namespace PL
             this.label7 = new System.Windows.Forms.Label();
             this.DeleteButt = new System.Windows.Forms.Button();
             this.ExitButt = new System.Windows.Forms.Button();
+            this.CreateButt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -248,11 +249,25 @@ namespace PL
             this.ExitButt.UseVisualStyleBackColor = true;
             this.ExitButt.Click += new System.EventHandler(this.ExitButt_Click);
             // 
+            // CreateButt
+            // 
+            this.CreateButt.Enabled = false;
+            this.CreateButt.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CreateButt.Location = new System.Drawing.Point(560, 352);
+            this.CreateButt.Name = "CreateButt";
+            this.CreateButt.Size = new System.Drawing.Size(223, 38);
+            this.CreateButt.TabIndex = 24;
+            this.CreateButt.Text = "Додати студента";
+            this.CreateButt.UseVisualStyleBackColor = true;
+            this.CreateButt.Visible = false;
+            this.CreateButt.Click += new System.EventHandler(this.CreateButt_Click);
+            // 
             // StudRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.CreateButt);
             this.Controls.Add(this.ExitButt);
             this.Controls.Add(this.DeleteButt);
             this.Controls.Add(this.CourseBox);
@@ -303,5 +318,6 @@ namespace PL
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button DeleteButt;
         private System.Windows.Forms.Button ExitButt;
+        private System.Windows.Forms.Button CreateButt;
     }
 }
