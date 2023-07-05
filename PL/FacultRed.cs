@@ -108,8 +108,13 @@ namespace PL
         }
         private void DeleteButt_Click(object sender, EventArgs e)
         {
-            Logic.DeleteButt_Click();
-            Close();
+            DialogResult result = MessageBox.Show("Ви дійсно хочете видалити факультет?", "Видалення",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Logic.DeleteButt_Click();
+                Close();
+            }
         }
         private void FacultRed_FormClosed(object sender, FormClosedEventArgs e)
         {

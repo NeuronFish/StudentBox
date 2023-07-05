@@ -101,8 +101,13 @@ namespace PL
         }
         private void DeleteButt_Click(object sender, EventArgs e)
         {
-            Logic.DeleteButt_Click(sender, e);
-            Close();
+            DialogResult result = MessageBox.Show("Ви дійсно хочете видалити групу?", "Видалення",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Logic.DeleteButt_Click(sender, e);
+                Close();
+            }
         }
         private void GroupRed_FormClosed(object sender, FormClosedEventArgs e)
         {

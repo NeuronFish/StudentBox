@@ -80,8 +80,13 @@ namespace PL
         }
         private void DeleteButt_Click(object sender, EventArgs e)
         {
-            Logic.DeleteButt_Click();
-            Close();
+            DialogResult result = MessageBox.Show("Ви дійсно хочете видалити студента?", "Видалення",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                Logic.DeleteButt_Click();
+                Close();
+            }
         }
         private void StudRed_FormClosed(object sender, FormClosedEventArgs e)
         {
