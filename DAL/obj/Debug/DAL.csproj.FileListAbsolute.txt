@@ -1,0 +1,12 @@
+E:\MyTest\StudentBox\DAL\bin\Debug\DAL.dll.config
+E:\MyTest\StudentBox\DAL\bin\Debug\DAL.dll
+E:\MyTest\StudentBox\DAL\bin\Debug\DAL.pdb
+E:\MyTest\StudentBox\DAL\bin\Debug\EntityFramework.dll
+E:\MyTest\StudentBox\DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\MyTest\StudentBox\DAL\bin\Debug\EntityFramework.xml
+E:\MyTest\StudentBox\DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\MyTest\StudentBox\DAL\obj\Debug\DAL.csproj.AssemblyReference.cache
+E:\MyTest\StudentBox\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
+E:\MyTest\StudentBox\DAL\obj\Debug\DAL.csproj.CopyComplete
+E:\MyTest\StudentBox\DAL\obj\Debug\DAL.dll
+E:\MyTest\StudentBox\DAL\obj\Debug\DAL.pdb
