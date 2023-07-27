@@ -39,8 +39,7 @@ namespace PL
             if (StudView.SelectedRows.Count != 0)
             {
                 StudRed studRed = new StudRed(this, _MainLogic, 
-                    Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value)), 
-                    StudentsButt_Click);
+                    Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value), StudentsButt_Click);
                 Hide();
                 studRed.Show();
             }
@@ -56,8 +55,7 @@ namespace PL
             if (TeacherView.SelectedRows.Count != 0)
             {
                 TeachRed teachRed = new TeachRed(this, _MainLogic,
-                    Logic.GetTeacher(Convert.ToInt32(TeacherView.SelectedRows[0].Cells[0].Value)),
-                    TeacherButt_Click);
+                    Convert.ToInt32(TeacherView.SelectedRows[0].Cells[0].Value), TeacherButt_Click);
                 Hide();
                 teachRed.Show();
             }
@@ -73,8 +71,7 @@ namespace PL
             if (GroupView.SelectedRows.Count != 0)
             {
                 GroupRed groupRed = new GroupRed(this, _MainLogic, 
-                    Logic.GetGroup(Convert.ToInt32(GroupView.SelectedRows[0].Cells[0].Value)), 
-                    GroupButt_Click);
+                    Convert.ToInt32(GroupView.SelectedRows[0].Cells[0].Value), GroupButt_Click);
                 Hide();
                 groupRed.Show();
             }
@@ -90,8 +87,7 @@ namespace PL
             if (FacultView.SelectedRows.Count != 0)
             {
                 FacultRed facultRed = new FacultRed(this, _MainLogic,
-                    Logic.GetFacult(Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].Value)),
-                    FacultButt_Click);
+                    Convert.ToInt32(FacultView.SelectedRows[0].Cells[0].Value), FacultButt_Click);
                 Hide();
                 facultRed.Show();
             }

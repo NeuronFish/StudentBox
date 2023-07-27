@@ -1,20 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Entnities
 {
     public class Group
     {
-        public int Id { get; set; }
+        [Key]
+        public int GroupId { get; set; }
         public string Name { get; set; }
         public int Course { get; set; }
         public int? FacultId { get; set; }
-        // Староста групи
-        public int? StudId { get; set; }
-        // Куратор групи
-        public int? TeachId { get; set; }
         public virtual Facult Facult { get; set; }
-        public virtual Student Student { get; set; }
-        public virtual Teacher Teacher { get; set; }
+        // Староста групи
+        public virtual Student Headman { get; set; }
+        // Куратор групи
+        public virtual Teacher Curator { get; set; }
         public virtual ICollection<Student> Students { get; set; }
     }
 }

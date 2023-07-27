@@ -4,3 +4,9 @@ E:\MyTest\StudentBox\BLL\obj\Debug\BLL.csproj.CoreCompileInputs.cache
 E:\MyTest\StudentBox\BLL\obj\Debug\BLL.dll
 E:\MyTest\StudentBox\BLL\obj\Debug\BLL.pdb
 E:\MyTest\StudentBox\BLL\obj\Debug\BLL.csproj.AssemblyReference.cache
+E:\MyTest\StudentBox\BLL\bin\Debug\DAL.dll
+E:\MyTest\StudentBox\BLL\bin\Debug\EntityFramework.dll
+E:\MyTest\StudentBox\BLL\bin\Debug\DAL.pdb
+E:\MyTest\StudentBox\BLL\bin\Debug\DAL.dll.config
+E:\MyTest\StudentBox\BLL\bin\Debug\EntityFramework.xml
+E:\MyTest\StudentBox\BLL\obj\Debug\BLL.csproj.CopyComplete

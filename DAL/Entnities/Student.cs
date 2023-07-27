@@ -1,9 +1,11 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 namespace DAL.Entnities
 {
     public class Student
     {
-        public int Id { get; set; }
+        [Key]
+        public int StudId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Patronymic { get; set; }

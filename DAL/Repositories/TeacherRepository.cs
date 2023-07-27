@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DAL.Entnities;
 
 namespace DAL.Repositories
@@ -13,7 +14,7 @@ namespace DAL.Repositories
         }
         public IEnumerable<Teacher> GetAll()
         {
-            return DB.Teachers;
+            return DB.Teachers.ToArray();
         }
         public Teacher Get(int id)
         {

@@ -18,8 +18,9 @@ namespace BLL
         void ChangeCourseButt_Click(ComboBox comboBox);
         void ComboBox_KeyDown(object sender, KeyEventArgs e);
         void DeleteButt_Click(object sender, EventArgs e);
-        Group GetGroup();
+        object GetGroup();
         bool CreateButt_Click();
-        Student GetStudent(int id);
+        void SaveChanges(object sender, EventArgs e);
+        void UndoChanges(object sender, EventArgs e);
     }
 }

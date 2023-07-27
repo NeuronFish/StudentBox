@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using DAL.Entnities;
 
 namespace BLL
 {
@@ -12,93 +13,100 @@ namespace BLL
         private bool FacultLock = false;
 
         //Конструктор для відкриття групи
-        public GroupRedLogic(Group group, MainLogic mainLogic)
+        public GroupRedLogic(int groupId, MainLogic mainLogic)
         {
-            _Group = group;
+            _Group = mainLogic.GetUnitOfWork().Groups().Get(groupId);
             _MainLogic = mainLogic;
         }
         //Конструктор для створення нової групи
         public GroupRedLogic(MainLogic mainLogic)
         {
             _MainLogic = mainLogic;
-            _Group = new Group(_MainLogic.GetGroupList().Max(group => group.GetId()) + 1, "-", 1,
-                new System.Collections.Generic.List<Student>(), null, null, null);
+            _Group = new Group()
+            {
+                Name = "-",
+                Course = 1,
+                Students = new System.Collections.Generic.List<Student>(),
+                Facult = null,
+                Curator = null,
+                Headman = null
+            };
+            _MainLogic.GetUnitOfWork().Groups().Create(_Group);
         }
         //Конструктор для створення нової групи в факультеті
-        public GroupRedLogic(MainLogic mainLogic, Facult facult)
+        public GroupRedLogic(MainLogic mainLogic, int facultId)
         {
+            _Group = new Group()
+            {
+                Name = "-",
+                Course = 1,
+                Students = new System.Collections.Generic.List<Student>(),
+                Facult = mainLogic.GetUnitOfWork().Facults().Get(facultId),
+                Curator = null,
+                Headman = null
+            };
             _MainLogic = mainLogic;
-            _Group = new Group(_MainLogic.GetGroupList().Max(group => group.GetId()) + 1, "-", 1,
-                new System.Collections.Generic.List<Student>(), null, null, facult);
+            _MainLogic.GetUnitOfWork().Groups().Create(_Group);
             FacultLock = true;
         }
         public void InitializeNameBox(TextBox textBox)
         {
-            textBox.Text = _Group.GetName();
-        }
-        private string GetPersonInfo(Person person)
-        {
-            if (person == null)
-                return "Відсутній";
-            else
-            {
-                string[] info = person.GetPersInfo();
-                return info[1] + " " + info[0][0] + "." + info[2][0] + ".";
-            }
+            textBox.Text = _Group.Name;
         }
         public void InitializeCuratorComboBox(ComboBox comboBox)
         {
             comboBox.Items.Add("Відсутній");
-            foreach (Teacher teach in _MainLogic.GetTeacherList())
+            foreach (Teacher teach in _MainLogic.GetUnitOfWork().Teachers().GetAll())
             {
-                if (teach.GetCuratorGroup() == null || teach == _Group.GetCurator())
-                {
-                    string[] info = teach.GetPersInfo();
-                    comboBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
-                }
+                if (teach.OwnGroup == null || teach == _Group.Curator)
+                    comboBox.Items.Add(teach.Surname + " " + teach.Name[0] + "." + teach.Patronymic[0] + ".");
             }
-            comboBox.SelectedItem = GetPersonInfo(_Group.GetCurator());
+            if (_Group.Curator == null)
+                comboBox.SelectedItem = "Відсутній";
+            else
+                comboBox.SelectedItem = _Group.Curator.Surname + " " + _Group.Curator.Name[0] + "." +
+                    _Group.Curator.Patronymic[0] + ".";
         }
         public void InitializeHeadmanComboBox(ComboBox comboBox)
         {
             comboBox.Items.Add("Відсутній");
-            foreach (Student stud in _Group.GetStudentList())
-            {
-                string[] info = stud.GetPersInfo();
-                comboBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
-            }
-            comboBox.SelectedItem = GetPersonInfo(_Group.GetHeadman());
+            foreach (Student stud in _Group.Students)
+                comboBox.Items.Add(stud.Surname + " " + stud.Name[0] + "." + stud.Patronymic[0] + ".");
+            if (_Group.Headman == null)
+                comboBox.SelectedItem = "Відсутній";
+            else
+                comboBox.SelectedItem = _Group.Headman.Surname + " " + _Group.Headman.Name[0] + "." + 
+                    _Group.Headman.Patronymic[0] + ".";
         }
         public void InitializeFacultComboBox(ComboBox comboBox)
         {
             comboBox.Items.Add("Відсутній");
-            foreach (Facult facult in _MainLogic.GetFacultList())
-                comboBox.Items.Add(facult.GetName());
-            if (_Group.GetFacult() == null)
+            foreach (Facult facult in _MainLogic.GetUnitOfWork().Facults().GetAll())
+                comboBox.Items.Add(facult.Name);
+            if (_Group.Facult == null)
                 comboBox.SelectedItem = "Відсутній";
             else
-                comboBox.SelectedItem = _Group.GetFacult().GetName();
+                comboBox.SelectedItem = _Group.Facult.Name;
         }
         public void InitializeCourseComboBox(ComboBox comboBox)
         {
             comboBox.Items.AddRange(new string[] { "1", "2", "3", "4", "5", "6" });
-            comboBox.SelectedItem = Convert.ToString(_Group.GetCourse());
+            comboBox.SelectedItem = Convert.ToString(_Group.Course);
         }
         public void InitializeStudGridView(DataGridView studView)
         {
-            foreach(Student stud in _Group.GetStudentList())
-            {
-                string[] info = stud.GetPersInfo();
-                studView.Rows.Add(new string[] { Convert.ToString(stud.GetId()), info[1], info[0], info[2] });
-            }
+            foreach(Student stud in _Group.Students)
+                studView.Rows.Add(new string[] { Convert.ToString(stud.StudId), stud.Surname, stud.Name,
+                    stud.Patronymic });
         }
         public void NameBoxChangedEvent(object sender, EventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            if (textBox.Text == "" || _MainLogic.GetGroupList().Find(item => item.GetName() == textBox.Text) != null)
-                textBox.Text = _Group.GetName();
+            if (textBox.Text == "" || textBox.Text == "-" ||
+                _MainLogic.GetUnitOfWork().Groups().GetAll().FirstOrDefault(facult => facult.Name == textBox.Text) != null)
+                textBox.Text = _Group.Name;
             else
-                _Group.ChangeName(textBox.Text);
+                _Group.Name = textBox.Text;
             textBox.LostFocus -= NameBoxChangedEvent;
             textBox.KeyDown -= NameBox_KeyDown;
             textBox.ReadOnly = true;
@@ -118,20 +126,21 @@ namespace BLL
         public void Curator_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            Teacher teacher = _MainLogic.GetTeacherList().Find(teach => teach.GetPersInfo()[1] + " " + teach.GetPersInfo()[0][0] + "."
-                + teach.GetPersInfo()[2][0] + "." == comboBox.Text);
+            Teacher teacher = _MainLogic.GetUnitOfWork().Teachers().GetAll().FirstOrDefault(teach => teach.Surname + 
+                " " + teach.Name[0] + "." + teach.Patronymic[0] + "." == comboBox.Text);
             if (teacher == null && comboBox.Text != "Відсутній")
-                comboBox.SelectedItem = GetPersonInfo(_Group.GetCurator());
+                comboBox.SelectedItem = _Group.Curator.Surname + " " + _Group.Curator.Name[0] + "." +
+                    _Group.Curator.Patronymic[0] + ".";
             else
             {
-                if (_Group.GetCurator() != null)
-                    _Group.GetCurator().ChangeCuratorGroup(null);
+                if (_Group.Curator != null)
+                    _Group.Curator.OwnGroup = null;
                 if (comboBox.Text == "Відсутній")
-                    _Group.ChangeCurator(null);
+                    _Group.Curator = null;
                 else
                 {
-                    _Group.ChangeCurator(teacher);
-                    teacher.ChangeCuratorGroup(_Group);
+                    _Group.Curator = teacher;
+                    teacher.OwnGroup = _Group;
                 }
             }
             comboBox.SelectedIndexChanged -= Curator_SelectedIndexChanged;
@@ -142,15 +151,16 @@ namespace BLL
         {
             ComboBox comboBox = (ComboBox)sender;
             if (comboBox.Text == "Відсутній")
-                _Group.ChangeHeadman(null);
+                _Group.Headman = null;
             else
             {
-                Student student = _MainLogic.GetStudentList().Find(stud => stud.GetPersInfo()[1] + " " + stud.GetPersInfo()[0][0] + "."
-                    + stud.GetPersInfo()[2][0] + "." == comboBox.Text);
+                Student student = _MainLogic.GetUnitOfWork().Students().GetAll().FirstOrDefault(stud => stud.Surname + 
+                    " " + stud.Name[0] + "." + stud.Patronymic[0] + "." == comboBox.Text);
                 if (student == null)
-                    comboBox.SelectedItem = GetPersonInfo(_Group.GetHeadman());
+                    comboBox.SelectedItem = _Group.Headman.Surname + " " + _Group.Headman.Name[0] + "." +
+                        _Group.Headman.Patronymic[0] + ".";
                 else
-                    _Group.ChangeHeadman(student);
+                    _Group.Headman = student;
             }
             comboBox.SelectedIndexChanged -= Headman_SelectedIndexChanged;
             comboBox.LostFocus -= Headman_SelectedIndexChanged;
@@ -159,24 +169,26 @@ namespace BLL
         public void Facult_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-            Facult facult = _MainLogic.GetFacultList().Find(_facult => _facult.GetName() == comboBox.Text);
+            Facult facult = _MainLogic.GetUnitOfWork().Facults().GetAll().FirstOrDefault(_facult => _facult.Name == comboBox.Text);
             if (facult == null && comboBox.Text != "Відсутній")
             {
-                if (_Group.GetFacult() == null)
+                if (_Group.Facult == null)
                     comboBox.SelectedItem = "Відсутній";
                 else
-                    comboBox.SelectedItem = _Group.GetFacult().GetName();
+                    comboBox.SelectedItem = _Group.Facult.Name;
             }
             else
             {
-                if (_Group.GetFacult() != null)
-                    _Group.GetFacult().RemoveGroup(_Group);
+                if (_Group.Facult != null)
+                    _Group.Facult.Groups.Remove(_Group);
                 if (comboBox.Text == "Відсутній")
-                    _Group.ChangeFacult(null);
+                    _Group.Facult = null;
                 else
                 {
-                    _Group.ChangeFacult(facult);
-                    _Group.GetFacult().AddGroup(_Group);
+                    _Group.Facult = facult;
+                    if (_Group.Facult.Groups == null)
+                        _Group.Facult.Groups = new System.Collections.Generic.List<Group>();
+                    _Group.Facult.Groups.Add(_Group);
                 }
             }
             comboBox.SelectedIndexChanged -= Facult_SelectedIndexChanged;
@@ -187,9 +199,9 @@ namespace BLL
         {
             ComboBox comboBox = (ComboBox)sender;
             if (int.TryParse(comboBox.Text, out int number) && number > 0 && number < 7)
-                _Group.ChangeCourse(number);
+                _Group.Course = number;
             else
-                comboBox.SelectedItem = _Group.GetCourse();
+                comboBox.SelectedItem = _Group.Course;
             comboBox.SelectedIndexChanged -= Course_SelectIndexChanged;
             comboBox.LostFocus -= Course_SelectIndexChanged;
             comboBox.Enabled = false;
@@ -225,33 +237,52 @@ namespace BLL
         }
         public void DeleteButt_Click(object sender, EventArgs e)
         {
-            foreach (Student stud in _Group.GetStudentList())
-                stud.ChangeGroup(null);
-            if (_Group.GetCurator() != null)
+            foreach (Student stud in _Group.Students)
+                stud.Group = null;
+            if (_Group.Curator != null)
             {
-                _Group.GetCurator().ChangeCuratorGroup(null);
-                _Group.ChangeCurator(null);
+                _Group.Curator.OwnGroup = null;
+                _Group.Curator = null;
             }
-            if (_Group.GetFacult() != null)
-                _Group.GetFacult().RemoveGroup(_Group);
-            _MainLogic.GetGroupList().Remove(_Group);
+            if (_Group.Facult != null)
+                _Group.Facult.Groups.Remove(_Group);
+            _MainLogic.GetUnitOfWork().Groups().Delete(_Group);
+            _MainLogic.GetUnitOfWork().Save();
         }
-        public Group GetGroup()
+        public object GetGroup()
         {
             return _Group;
         }
         public bool CreateButt_Click()
         {
-            if (_Group.GetName() == "-")
+            if (_Group.Name == "-")
                 return false;
-            _MainLogic.AddGroup(_Group);
             if (FacultLock)
-                _Group.GetFacult().AddGroup(_Group);
+                _Group.Facult.Groups.Add(_Group);
+            _MainLogic.GetUnitOfWork().Save();
             return true;
         }
-        public Student GetStudent(int id)
+        public void SaveChanges(object sender, EventArgs e)
         {
-            return _Group.GetStudentList().Find(stud => stud.GetId() == id);
+            _MainLogic.GetUnitOfWork().Groups().Update(_Group);
+            _MainLogic.GetUnitOfWork().Save();
+        }
+        public void UndoChanges(object sender, EventArgs e)
+        {
+            if (_Group.Facult != null)
+            {
+                _Group.Facult.Groups.Remove(_Group);
+                _Group.Facult = null;
+            }
+            if (_Group.Curator != null)
+            {
+                _Group.Curator.OwnGroup = null;
+                _Group.Curator = null;
+            }
+            foreach (Student stud in _Group.Students)
+                stud.Group = null;
+            _MainLogic.GetUnitOfWork().Groups().Delete(_Group);
+            _MainLogic.GetUnitOfWork().Save();
         }
     }
 }

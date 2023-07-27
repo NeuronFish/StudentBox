@@ -12,3 +12,10 @@ E:\MyTest\StudentBox\obj\Debug\StudentBox.csproj.CoreCompileInputs.cache
 E:\MyTest\StudentBox\obj\Debug\StudentBox.csproj.CopyComplete
 E:\MyTest\StudentBox\obj\Debug\StudentBox.exe
 E:\MyTest\StudentBox\obj\Debug\StudentBox.pdb
+E:\MyTest\StudentBox\bin\Debug\DAL.dll
+E:\MyTest\StudentBox\bin\Debug\EntityFramework.dll
+E:\MyTest\StudentBox\bin\Debug\DAL.pdb
+E:\MyTest\StudentBox\bin\Debug\DAL.dll.config
+E:\MyTest\StudentBox\bin\Debug\EntityFramework.xml
+E:\MyTest\StudentBox\bin\Debug\EntityFramework.SqlServer.dll
+E:\MyTest\StudentBox\bin\Debug\EntityFramework.SqlServer.xml

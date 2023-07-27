@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using DAL.Entnities;
 
 namespace BLL
 {
@@ -14,39 +16,40 @@ namespace BLL
         private EventHandler CurrentHandler;
 
         //Конструктор для відкриття факультету
-        public FacultRedLogic(Facult facult, MainLogic mainLogic, Button selectButt)
+        public FacultRedLogic(int facultId, MainLogic mainLogic, Button selectButt)
         {
-            _Facult = facult;
+            _Facult = mainLogic.GetUnitOfWork().Facults().Get(facultId);
             _MainLogic = mainLogic;
             SelectButt = selectButt;
         }
         //Конструктор для створення нового факультету
         public FacultRedLogic(MainLogic mainLogic, Button selectButt)
         {
-            _Facult = new Facult(mainLogic.GetFacultList().Max(facult => facult.GetId()) + 1, "-", null,
-                new System.Collections.Generic.List<Group>(), new System.Collections.Generic.List<Teacher>());
+            _Facult = new Facult()
+            {
+                Name = "-",
+                Dean = null,
+                Groups = new System.Collections.Generic.List<Group>(),
+                Teachers = new System.Collections.Generic.List<Teacher>()
+            };
             _MainLogic = mainLogic;
             SelectButt = selectButt;
         }
         public void InitializeData(TextBox nameBox, ComboBox deanBox)
         {
-            nameBox.Text = _Facult.GetName();
+            nameBox.Text = _Facult.Name;
             deanBox.Items.Add("Відсутній");
-            foreach (Teacher teach in _MainLogic.GetTeacherList())
+            foreach (Teacher teach in _MainLogic.GetUnitOfWork().Teachers().GetAll())
             {
-                if (!_MainLogic.GetFacultList().Exists(facult => facult.GetDean() == teach) || _Facult.GetDean() == teach)
-                {
-                    string[] info = teach.GetPersInfo();
-                    deanBox.Items.Add(info[1] + " " + info[0][0] + "." + info[2][0] + ".");
-                }
+                if (_MainLogic.GetUnitOfWork().Facults().GetAll().FirstOrDefault(facult => facult.Dean == teach) == null 
+                    || _Facult.Dean == teach)
+                    deanBox.Items.Add(teach.Surname + " " + teach.Name[0] + "." + teach.Patronymic[0] + ".");
             }
-            if (_Facult.GetDean() == null)
+            if (_Facult.Dean == null)
                 deanBox.SelectedItem = "Відсутній";
             else
-            {
-                string[] info = _Facult.GetDean().GetPersInfo();
-                deanBox.SelectedItem = info[1] + " " + info[0][0] + "." + info[2][0] + ".";
-            }
+                deanBox.SelectedItem = _Facult.Dean.Surname + " " + _Facult.Dean.Name[0] + "." +
+                    _Facult.Dean.Patronymic[0] + ".";
         }
         public void EditNameButt_Click(TextBox nameBox)
         {
@@ -58,10 +61,10 @@ namespace BLL
         public void TextBoxChangedEvent(object sender, EventArgs e)
         {
             TextBox nameBox = (TextBox)sender;
-            if (nameBox.Text == "")
-                nameBox.Text = _Facult.GetName();
+            if (nameBox.Text == "" || nameBox.Text == "-")
+                nameBox.Text = _Facult.Name;
             else
-                _Facult.ChangeName(nameBox.Text);
+                _Facult.Name = nameBox.Text;
             nameBox.LostFocus -= TextBoxChangedEvent;
             nameBox.KeyDown -= TextBox_KeyDown;
             nameBox.ReadOnly = true;
@@ -81,19 +84,22 @@ namespace BLL
         public void DeanComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             ComboBox deanBox = (ComboBox)sender;
-            if (_MainLogic.GetTeacherList().Find(item => item.GetPersInfo()[1] + " " + item.GetPersInfo()[0][0] +
-                "." + item.GetPersInfo()[2][0] + "." == deanBox.Text) == null && deanBox.Text != "Відсутній")
+            if (_MainLogic.GetUnitOfWork().Teachers().GetAll().First(dean => dean.Surname + " " + dean.Name[0] +
+                "." + dean.Patronymic[0] + "." == deanBox.Text) == null && deanBox.Text != "Відсутній")
             {
-                string[] info = _Facult.GetDean().GetPersInfo();
-                deanBox.Text = info[1] + " " + info[0][0] + "." + info[2][0] + ".";
+                if (_Facult.Dean == null)
+                    deanBox.Text = "Відсутній";
+                else
+                    deanBox.Text = _Facult.Dean.Surname + " " + _Facult.Dean.Name[0] + "." +
+                        _Facult.Dean.Patronymic[0] + ".";
             }
             else
             {
                 if (deanBox.Text == "Відсутній")
-                    _Facult.ChangeDean(null);
+                    _Facult.Dean = null;
                 else
-                    _Facult.ChangeDean(_MainLogic.GetTeacherList().Find(item => item.GetPersInfo()[1] + " " +
-                        item.GetPersInfo()[0][0] + "." + item.GetPersInfo()[2][0] + "." == deanBox.Text));
+                    _Facult.Dean = _MainLogic.GetUnitOfWork().Teachers().GetAll().First(dean => dean.Surname + 
+                        " " + dean.Name[0] + "." + dean.Patronymic[0] + "." == deanBox.Text);
             }
             deanBox.SelectedIndexChanged -= DeanComboBox_SelectedIndexChanged;
             deanBox.SelectedIndexChanged -= DeanComboBox_SelectedIndexChanged;
@@ -123,88 +129,67 @@ namespace BLL
         public void StudentsButt_Click(Button studButt, DataGridView studView, EventHandler selectButt_Click)
         {
             SetLogic(studButt, studView, selectButt_Click);
-            foreach (Group group in _Facult.GetGroups())
+            foreach (Group group in _Facult.Groups)
             {
-                foreach (Student stud in group.GetStudentList())
-                {
-                    string[] info = stud.GetPersInfo();
-                    studView.Rows.Add(new string[] { Convert.ToString(stud.GetId()), 
-                        info[1] + " " + info[0] + " " + info[2], Convert.ToString(group.GetCourse()), group.GetName() });
-                }
+                foreach (Student stud in group.Students)
+                    studView.Rows.Add(new string[] { Convert.ToString(stud.StudId), stud.Surname + " " + stud.Name + 
+                        " " + stud.Patronymic, Convert.ToString(group.Course), group.Name });
             }
         }
         public void TeacherButt_Click(Button teachButt, DataGridView teachView, EventHandler selectButt_Click)
         {
             SetLogic(teachButt, teachView, selectButt_Click);
-            foreach (Teacher teach in _Facult.GetTeachers())
-            {
-                string[] info = teach.GetPersInfo();
-                teachView.Rows.Add(new string[] { Convert.ToString(teach.GetId()), 
-                    info[1] + " " + info[0] + " " + info[2], teach.GetPosition() });
-            }
+            foreach (Teacher teach in _Facult.Teachers)
+                teachView.Rows.Add(new string[] { Convert.ToString(teach.TeachId), teach.Surname + " " + teach.Name + 
+                    " " + teach.Patronymic, teach.Position });
         }
         public void GroupButt_Click(Button groupButt, DataGridView groupView, EventHandler selectButt_Click)
         {
             SetLogic(groupButt, groupView, selectButt_Click);
-            foreach (Group group in _Facult.GetGroups())
+            foreach (Group group in _Facult.Groups)
             {
                 string curator;
                 string headman;
-                if (group.GetCurator() == null)
+                if (group.Curator == null)
                     curator = "Відсутній";
                 else
-                {
-                    string[] info = group.GetCurator().GetPersInfo();
-                    curator = info[1] + " " + info[0][0] + "." + info[2][0] + ".";
-                }
-                if (group.GetHeadman() == null)
+                    curator = group.Curator.Surname + " " + group.Curator.Name[0] + 
+                        "." + group.Curator.Patronymic[0] + ".";
+                if (group.Headman == null)
                     headman = "Відсутній";
                 else
-                {
-                    string[] info = group.GetHeadman().GetPersInfo();
-                    headman = info[1] + " " + info[0][0] + "." + info[2][0] + ".";
-                }
-                groupView.Rows.Add(new string[] { Convert.ToString(group.GetId()),
-                    group.GetName(), Convert.ToString(group.GetCourse()), Convert.ToString(group.GetStudentList().Count), 
-                    curator, headman });
+                    headman = group.Headman.Surname + " " + group.Headman.Name[0] + 
+                        "." + group.Headman.Patronymic[0] + ".";
+                groupView.Rows.Add(new string[] { Convert.ToString(group.GroupId), group.Name, Convert.ToString(group.Course), 
+                    Convert.ToString(group.Students.Count), curator, headman });
             }
         }
-        public Facult GetFacult()
+        public int GetFacultId()
         {
-            return _Facult;
-        }
-        public Student GetStudent(int id)
-        {
-            foreach (Group group in _Facult.GetGroups())
-            {
-                Student stud = group.GetStudentList().Find(item => item.GetId() == id);
-                if (stud != null)
-                    return stud;
-            }
-            return null;
-        }
-        public Teacher GetTeacher(int id)
-        {
-            return _Facult.GetTeachers().Find(item => item.GetId() == id);
-        }
-        public Group GetGroup(int id)
-        {
-            return _Facult.GetGroups().Find(item => item.GetId() == id);
+            return _Facult.FacultId;
         }
         public void DeleteButt_Click()
         {
-            foreach (Group group in _Facult.GetGroups())
-                group.ChangeFacult(null);
-            foreach (Teacher teach in _Facult.GetTeachers())
-                teach.ChangeFacult(null);
-            _MainLogic.GetFacultList().Remove(_Facult);
+            foreach (Group group in _Facult.Groups)
+                group.Facult = null;
+            foreach (Teacher teach in _Facult.Teachers)
+                teach.Facult = null;
+            _Facult.Dean = null;
+            _MainLogic.GetUnitOfWork().Facults().Delete(_Facult);
+            _MainLogic.GetUnitOfWork().Save();
         }
         public bool CreateButt_Click()
         {
-            if (_Facult.GetName() == "-")
+            if (_Facult.Name == "-")
                 return false;
-            _MainLogic.AddFacult(_Facult);
+            _MainLogic.GetUnitOfWork().Facults().Create(_Facult);
+            _MainLogic.GetUnitOfWork().Save();
             return true;
+        }
+        public void SaveChanges(object sender, EventArgs e)
+        {
+            _MainLogic.GetUnitOfWork().Facults().Update(_Facult);
+            _MainLogic.GetUnitOfWork().Save();
         }
     }
 }

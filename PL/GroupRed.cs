@@ -12,14 +12,15 @@ namespace PL
         private EventHandler _OnClosed;
 
         //Конструктор для відкриття групи
-        public GroupRed(Form father, MainLogic mainLogic, Group group, EventHandler onClosed)
+        public GroupRed(Form father, MainLogic mainLogic, int groupId, EventHandler onClosed)
         {
             InitializeComponent();
             Father = father;
             _MainLogic = mainLogic;
-            Logic = new GroupRedLogic(group, mainLogic);
+            Logic = new GroupRedLogic(groupId, mainLogic);
             InitializeData();
-            _OnClosed = onClosed;
+            _OnClosed += Logic.SaveChanges;
+            _OnClosed += onClosed;
         }
         //Конструктор для створення нової групи
         public GroupRed(Form father, MainLogic mainLogic, EventHandler onClosed)
@@ -29,20 +30,20 @@ namespace PL
             _MainLogic = mainLogic;
             Logic = new GroupRedLogic(mainLogic);
             InitializeData();
-            _OnClosed = onClosed;
-            _OnClosed += Logic.DeleteButt_Click;
+            _OnClosed += Logic.UndoChanges;
+            _OnClosed += onClosed;
             CreateSwitch();
         }
         //Конструктор для створення нової групи в факультеті
-        public GroupRed(Form father, MainLogic mainLogic, Facult facult, EventHandler onClosed)
+        public GroupRed(Form father, MainLogic mainLogic, EventHandler onClosed, int facultId)
         {
             InitializeComponent();
             Father = father;
             _MainLogic = mainLogic;
-            Logic = new GroupRedLogic(mainLogic, facult);
+            Logic = new GroupRedLogic(mainLogic, facultId);
             InitializeData();
-            _OnClosed = onClosed;
-            _OnClosed += Logic.DeleteButt_Click;
+            _OnClosed += Logic.UndoChanges;
+            _OnClosed += onClosed;
             ChangeFacultButt.Visible = false;
             ChangeFacultButt.Enabled = false;
             CreateSwitch();
@@ -106,6 +107,7 @@ namespace PL
             if (result == DialogResult.Yes)
             {
                 Logic.DeleteButt_Click(sender, e);
+                _OnClosed -= Logic.SaveChanges;
                 Close();
             }
         }
@@ -137,7 +139,7 @@ namespace PL
         {
             if (Logic.CreateButt_Click())
             {
-                _OnClosed -= Logic.DeleteButt_Click; 
+                _OnClosed -= Logic.UndoChanges; 
                 Close();
             }
             else
@@ -149,8 +151,7 @@ namespace PL
             if (StudView.SelectedRows.Count != 0)
             {
                 StudRed studRed = new StudRed(this, _MainLogic,
-                    Logic.GetStudent(Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value)),
-                    StudGridViewUpdate);
+                    Convert.ToInt32(StudView.SelectedRows[0].Cells[0].Value), StudGridViewUpdate);
                 Hide();
                 studRed.Show();
             }

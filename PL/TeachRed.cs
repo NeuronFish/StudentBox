@@ -11,13 +11,14 @@ namespace PL
         private EventHandler _OnClosed;
 
         //Конструктор для відкриття вчителя
-        public TeachRed(Form father, MainLogic mainLogic, Teacher teacher, EventHandler onClosed)
+        public TeachRed(Form father, MainLogic mainLogic, int teachId, EventHandler onClosed)
         {
             InitializeComponent();
             Father = father;
-            Logic = new TeachRedLogic(teacher, mainLogic, InitializeFacultData);
+            Logic = new TeachRedLogic(teachId, mainLogic, InitializeFacultData);
             InitializeData();
             _OnClosed = onClosed;
+            _OnClosed += Logic.SaveChanges;
         }
         //Конструктор для створення нового вчителя
         public TeachRed(Form father, MainLogic mainLogic, EventHandler onClosed)
@@ -27,20 +28,20 @@ namespace PL
             Logic = new TeachRedLogic(mainLogic, InitializeFacultData);
             InitializeData();
             _OnClosed = onClosed;
+            _OnClosed += Logic.UndoChanges;
             CreateSwitch();
         }
         //Конструктор для створення нового вчителя в факультеті
-        public TeachRed(Form father, MainLogic mainLogic, Facult facult, EventHandler onClosed)
+        public TeachRed(Form father, MainLogic mainLogic, EventHandler onClosed, int facultId)
         {
             InitializeComponent();
             Father = father;
-            Logic = new TeachRedLogic(mainLogic, facult);
+            Logic = new TeachRedLogic(mainLogic, facultId);
             InitializeData();
             _OnClosed = onClosed;
+            _OnClosed += Logic.UndoChanges;
             EditFacultButt.Visible = false;
             EditFacultButt.Enabled = false;
-            EditCuratorButt.Visible = false;
-            EditCuratorButt.Enabled = false;
             CreateSwitch();
         }
         private void CreateSwitch()
@@ -99,6 +100,7 @@ namespace PL
             if (result == DialogResult.Yes)
             {
                 Logic.DeleteButt_Click();
+                _OnClosed -= Logic.SaveChanges;
                 Close();
             }
         }
@@ -116,7 +118,10 @@ namespace PL
         private void CreateButt_Click(object sender, EventArgs e)
         {
             if (Logic.CreateButt_Click())
+            {
+                _OnClosed -= Logic.UndoChanges;
                 Close();
+            }
             else
                 MessageBox.Show("П.І.Б. та посада повинні бути заповнені", "Помилка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);

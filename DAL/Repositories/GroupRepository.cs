@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DAL.Entnities;
 
 namespace DAL.Repositories
@@ -13,7 +14,7 @@ namespace DAL.Repositories
         }
         public IEnumerable<Group> GetAll()
         {
-            return DB.Groups;
+            return DB.Groups.ToArray();
         }
         public Group Get(int id)
         {

@@ -12,11 +12,9 @@ namespace BLL
         void StudentsButt_Click(Button studButt, DataGridView studView, EventHandler selectButt_Click);
         void TeacherButt_Click(Button teachButt, DataGridView teachView, EventHandler selectButt_Click);
         void GroupButt_Click(Button groupButt, DataGridView groupView, EventHandler selectButt_Click);
-        Facult GetFacult();
-        Student GetStudent(int id);
-        Teacher GetTeacher(int id);
-        Group GetGroup(int id);
+        int GetFacultId();
         void DeleteButt_Click();
         bool CreateButt_Click();
+        void SaveChanges(object sender, EventArgs e);
     }
 }

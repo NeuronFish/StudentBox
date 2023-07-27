@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace BLL
 {
@@ -14,5 +15,7 @@ namespace BLL
         void GroupComboBox_KeyDown(object sender, KeyEventArgs e);
         void DeleteButt_Click();
         bool CreateButt_Click();
+        void SaveChanges(object sender, EventArgs e);
+        void UndoChanges(object sender, EventArgs e);
     }
 }

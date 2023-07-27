@@ -54,7 +54,7 @@ namespace PL
             // 
             // StudentsButt
             // 
-            this.StudentsButt.Location = new System.Drawing.Point(12, 304);
+            this.StudentsButt.Location = new System.Drawing.Point(12, 298);
             this.StudentsButt.Name = "StudentsButt";
             this.StudentsButt.Size = new System.Drawing.Size(75, 23);
             this.StudentsButt.TabIndex = 1;
@@ -64,7 +64,7 @@ namespace PL
             // 
             // TeacherButt
             // 
-            this.TeacherButt.Location = new System.Drawing.Point(86, 304);
+            this.TeacherButt.Location = new System.Drawing.Point(86, 298);
             this.TeacherButt.Name = "TeacherButt";
             this.TeacherButt.Size = new System.Drawing.Size(75, 23);
             this.TeacherButt.TabIndex = 2;
@@ -74,7 +74,7 @@ namespace PL
             // 
             // GroupButt
             // 
-            this.GroupButt.Location = new System.Drawing.Point(160, 304);
+            this.GroupButt.Location = new System.Drawing.Point(160, 298);
             this.GroupButt.Name = "GroupButt";
             this.GroupButt.Size = new System.Drawing.Size(75, 23);
             this.GroupButt.TabIndex = 3;
@@ -84,7 +84,7 @@ namespace PL
             // 
             // FacultButt
             // 
-            this.FacultButt.Location = new System.Drawing.Point(234, 304);
+            this.FacultButt.Location = new System.Drawing.Point(234, 298);
             this.FacultButt.Name = "FacultButt";
             this.FacultButt.Size = new System.Drawing.Size(82, 23);
             this.FacultButt.TabIndex = 4;

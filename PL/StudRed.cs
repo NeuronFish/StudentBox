@@ -11,13 +11,14 @@ namespace PL
         private EventHandler _OnClosed;
 
         //Конструктор для відкриття студента
-        public StudRed(Form father, MainLogic mainLogic, Student stud, EventHandler onClosed)
+        public StudRed(Form father, MainLogic mainLogic, int studId, EventHandler onClosed)
         {
             InitializeComponent();
             Father = father;
-            Logic = new StudRedLogic(stud, mainLogic, InitializeGroupData);
+            Logic = new StudRedLogic(studId, mainLogic, InitializeGroupData);
             InitializeData();
             _OnClosed = onClosed;
+            _OnClosed += Logic.SaveChanges;
         }
         //Конструктор для створення нового студента
         public StudRed(Form father, MainLogic mainLogic, EventHandler onClosed)
@@ -27,10 +28,11 @@ namespace PL
             Logic = new StudRedLogic(mainLogic, InitializeGroupData);
             InitializeData();
             _OnClosed = onClosed;
+            _OnClosed += Logic.UndoChanges;
             CreateSwitch();
         }
         //Конструктор для створення нового студента в группі
-        public StudRed(Form father, Group group, MainLogic mainLogic, EventHandler onClosed)
+        public StudRed(Form father, object group, MainLogic mainLogic, EventHandler onClosed)
         {
             InitializeComponent();
             Father = father;
@@ -85,6 +87,7 @@ namespace PL
             if (result == DialogResult.Yes)
             {
                 Logic.DeleteButt_Click();
+                _OnClosed -= Logic.SaveChanges;
                 Close();
             }
         }
@@ -102,9 +105,12 @@ namespace PL
         private void CreateButt_Click(object sender, EventArgs e)
         {
             if (Logic.CreateButt_Click())
+            {
+                _OnClosed -= Logic.UndoChanges;
                 Close();
+            }
             else
-                MessageBox.Show("П.І.Б. повинний бути заповнений", "Помилка", 
+                MessageBox.Show("П.І.Б. повинний бути заповнений", "Помилка",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }

@@ -43,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entnities\Facult.cs" />
-    <Compile Include="Entnities\Group.cs" />
     <Compile Include="FormsLogic\FacultRedLogic.cs" />
     <Compile Include="FormsLogic\GroupRedLogic.cs" />
     <Compile Include="LogicInterfaces\IFacultRedLogicable.cs" />
@@ -54,12 +52,15 @@
     <Compile Include="FormsLogic\StudRedLogic.cs" />
     <Compile Include="FormsLogic\TeachRedLogic.cs" />
     <Compile Include="MainLogic.cs" />
-    <Compile Include="Entnities\Person.cs" />
     <Compile Include="LogicInterfaces\IMainWindowLogicable.cs" />
     <Compile Include="FormsLogic\MainWindowLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entnities\Student.cs" />
-    <Compile Include="Entnities\Teacher.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{f12f8c96-1154-4bea-b5b1-7beef45e68c6}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
