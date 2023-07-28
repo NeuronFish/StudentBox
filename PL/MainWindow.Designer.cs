@@ -17,6 +17,7 @@ namespace PL
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.StudentsButt = new System.Windows.Forms.Button();
             this.TeacherButt = new System.Windows.Forms.Button();
             this.GroupButt = new System.Windows.Forms.Button();
@@ -54,7 +55,7 @@ namespace PL
             // 
             // StudentsButt
             // 
-            this.StudentsButt.Location = new System.Drawing.Point(12, 298);
+            this.StudentsButt.Location = new System.Drawing.Point(11, 298);
             this.StudentsButt.Name = "StudentsButt";
             this.StudentsButt.Size = new System.Drawing.Size(75, 23);
             this.StudentsButt.TabIndex = 1;
@@ -64,7 +65,7 @@ namespace PL
             // 
             // TeacherButt
             // 
-            this.TeacherButt.Location = new System.Drawing.Point(86, 298);
+            this.TeacherButt.Location = new System.Drawing.Point(85, 298);
             this.TeacherButt.Name = "TeacherButt";
             this.TeacherButt.Size = new System.Drawing.Size(75, 23);
             this.TeacherButt.TabIndex = 2;
@@ -74,7 +75,7 @@ namespace PL
             // 
             // GroupButt
             // 
-            this.GroupButt.Location = new System.Drawing.Point(160, 298);
+            this.GroupButt.Location = new System.Drawing.Point(159, 298);
             this.GroupButt.Name = "GroupButt";
             this.GroupButt.Size = new System.Drawing.Size(75, 23);
             this.GroupButt.TabIndex = 3;
@@ -84,7 +85,7 @@ namespace PL
             // 
             // FacultButt
             // 
-            this.FacultButt.Location = new System.Drawing.Point(234, 298);
+            this.FacultButt.Location = new System.Drawing.Point(233, 298);
             this.FacultButt.Name = "FacultButt";
             this.FacultButt.Size = new System.Drawing.Size(82, 23);
             this.FacultButt.TabIndex = 4;
@@ -338,7 +339,9 @@ namespace PL
             this.Controls.Add(this.GroupButt);
             this.Controls.Add(this.TeacherButt);
             this.Controls.Add(this.StudentsButt);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainWindow";
+            this.Text = "MainWindow";
             ((System.ComponentModel.ISupportInitialize)(this.StudView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.TeacherView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.GroupView)).EndInit();

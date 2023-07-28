@@ -29,6 +29,7 @@ namespace PL
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StudRed));
             this.label1 = new System.Windows.Forms.Label();
             this.EditSurnameButt = new System.Windows.Forms.Button();
             this.SurnameBox = new System.Windows.Forms.TextBox();
@@ -64,11 +65,15 @@ namespace PL
             // 
             // EditSurnameButt
             // 
-            this.EditSurnameButt.Location = new System.Drawing.Point(376, 12);
+            this.EditSurnameButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.EditSurnameButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EditSurnameButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EditSurnameButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditSurnameButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.EditSurnameButt.Location = new System.Drawing.Point(373, 9);
             this.EditSurnameButt.Name = "EditSurnameButt";
-            this.EditSurnameButt.Size = new System.Drawing.Size(50, 29);
+            this.EditSurnameButt.Size = new System.Drawing.Size(36, 34);
             this.EditSurnameButt.TabIndex = 4;
-            this.EditSurnameButt.Text = "button1";
             this.EditSurnameButt.UseVisualStyleBackColor = true;
             this.EditSurnameButt.Click += new System.EventHandler(this.EditSurnameButt_Click);
             // 
@@ -93,11 +98,16 @@ namespace PL
             // 
             // EditNameButt
             // 
-            this.EditNameButt.Location = new System.Drawing.Point(733, 12);
+            this.EditNameButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.EditNameButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EditNameButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EditNameButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditNameButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.EditNameButt.Location = new System.Drawing.Point(730, 9);
+            this.EditNameButt.Margin = new System.Windows.Forms.Padding(0);
             this.EditNameButt.Name = "EditNameButt";
-            this.EditNameButt.Size = new System.Drawing.Size(50, 29);
+            this.EditNameButt.Size = new System.Drawing.Size(36, 34);
             this.EditNameButt.TabIndex = 7;
-            this.EditNameButt.Text = "button1";
             this.EditNameButt.UseVisualStyleBackColor = true;
             this.EditNameButt.Click += new System.EventHandler(this.EditNameButt_Click);
             // 
@@ -122,11 +132,16 @@ namespace PL
             // 
             // EditPatronymicButt
             // 
-            this.EditPatronymicButt.Location = new System.Drawing.Point(399, 47);
+            this.EditPatronymicButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.EditPatronymicButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EditPatronymicButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EditPatronymicButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditPatronymicButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.EditPatronymicButt.Location = new System.Drawing.Point(396, 44);
+            this.EditPatronymicButt.Margin = new System.Windows.Forms.Padding(0);
             this.EditPatronymicButt.Name = "EditPatronymicButt";
-            this.EditPatronymicButt.Size = new System.Drawing.Size(50, 29);
+            this.EditPatronymicButt.Size = new System.Drawing.Size(36, 34);
             this.EditPatronymicButt.TabIndex = 10;
-            this.EditPatronymicButt.Text = "button1";
             this.EditPatronymicButt.UseVisualStyleBackColor = true;
             this.EditPatronymicButt.Click += new System.EventHandler(this.EditPatronymicButt_Click);
             // 
@@ -170,11 +185,16 @@ namespace PL
             // 
             // ChangeGroupButt
             // 
-            this.ChangeGroupButt.Location = new System.Drawing.Point(388, 141);
+            this.ChangeGroupButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.ChangeGroupButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ChangeGroupButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChangeGroupButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeGroupButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.ChangeGroupButt.Location = new System.Drawing.Point(385, 140);
+            this.ChangeGroupButt.Margin = new System.Windows.Forms.Padding(0);
             this.ChangeGroupButt.Name = "ChangeGroupButt";
-            this.ChangeGroupButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeGroupButt.Size = new System.Drawing.Size(36, 34);
             this.ChangeGroupButt.TabIndex = 15;
-            this.ChangeGroupButt.Text = "button1";
             this.ChangeGroupButt.UseVisualStyleBackColor = true;
             this.ChangeGroupButt.Click += new System.EventHandler(this.ChangeGroupButt_Click);
             // 
@@ -288,6 +308,7 @@ namespace PL
             this.Controls.Add(this.label1);
             this.Controls.Add(this.EditSurnameButt);
             this.Controls.Add(this.SurnameBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StudRed";
             this.Text = "StudRed";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.StudRed_FormClosed);

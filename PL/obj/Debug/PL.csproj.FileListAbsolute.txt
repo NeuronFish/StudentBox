@@ -18,3 +18,4 @@ E:\MyTest\StudentBox\PL\bin\Debug\EntityFramework.dll
 E:\MyTest\StudentBox\PL\bin\Debug\DAL.pdb
 E:\MyTest\StudentBox\PL\bin\Debug\DAL.dll.config
 E:\MyTest\StudentBox\PL\bin\Debug\EntityFramework.xml
+E:\MyTest\StudentBox\PL\obj\Debug\PL.Properties.Resources.resources

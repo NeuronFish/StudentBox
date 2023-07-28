@@ -29,8 +29,8 @@ namespace PL
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FacultRed));
             this.NameBox = new System.Windows.Forms.TextBox();
-            this.EditNameButt = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.ChangeDeanButt = new System.Windows.Forms.Button();
@@ -60,6 +60,7 @@ namespace PL
             this.AddTeachButt = new System.Windows.Forms.Button();
             this.AddGroupButt = new System.Windows.Forms.Button();
             this.CreateButt = new System.Windows.Forms.Button();
+            this.EditNameButt = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.FacultStudView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FacultTeacherView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.FacultGroupView)).BeginInit();
@@ -73,16 +74,6 @@ namespace PL
             this.NameBox.ReadOnly = true;
             this.NameBox.Size = new System.Drawing.Size(200, 29);
             this.NameBox.TabIndex = 0;
-            // 
-            // EditNameButt
-            // 
-            this.EditNameButt.Location = new System.Drawing.Point(293, 14);
-            this.EditNameButt.Name = "EditNameButt";
-            this.EditNameButt.Size = new System.Drawing.Size(50, 29);
-            this.EditNameButt.TabIndex = 1;
-            this.EditNameButt.Text = "button1";
-            this.EditNameButt.UseVisualStyleBackColor = true;
-            this.EditNameButt.Click += new System.EventHandler(this.EditNameButt_Click);
             // 
             // label1
             // 
@@ -106,17 +97,22 @@ namespace PL
             // 
             // ChangeDeanButt
             // 
-            this.ChangeDeanButt.Location = new System.Drawing.Point(696, 14);
+            this.ChangeDeanButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.ChangeDeanButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ChangeDeanButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChangeDeanButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeDeanButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.ChangeDeanButt.Location = new System.Drawing.Point(693, 11);
+            this.ChangeDeanButt.Margin = new System.Windows.Forms.Padding(0);
             this.ChangeDeanButt.Name = "ChangeDeanButt";
-            this.ChangeDeanButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeDeanButt.Size = new System.Drawing.Size(36, 34);
             this.ChangeDeanButt.TabIndex = 4;
-            this.ChangeDeanButt.Text = "button2";
             this.ChangeDeanButt.UseVisualStyleBackColor = true;
             this.ChangeDeanButt.Click += new System.EventHandler(this.ChangeDeanButt_Click);
             // 
             // GroupButt
             // 
-            this.GroupButt.Location = new System.Drawing.Point(164, 350);
+            this.GroupButt.Location = new System.Drawing.Point(163, 344);
             this.GroupButt.Name = "GroupButt";
             this.GroupButt.Size = new System.Drawing.Size(75, 23);
             this.GroupButt.TabIndex = 22;
@@ -126,7 +122,7 @@ namespace PL
             // 
             // TeacherButt
             // 
-            this.TeacherButt.Location = new System.Drawing.Point(90, 350);
+            this.TeacherButt.Location = new System.Drawing.Point(89, 344);
             this.TeacherButt.Name = "TeacherButt";
             this.TeacherButt.Size = new System.Drawing.Size(75, 23);
             this.TeacherButt.TabIndex = 21;
@@ -136,7 +132,7 @@ namespace PL
             // 
             // StudentsButt
             // 
-            this.StudentsButt.Location = new System.Drawing.Point(16, 350);
+            this.StudentsButt.Location = new System.Drawing.Point(15, 344);
             this.StudentsButt.Name = "StudentsButt";
             this.StudentsButt.Size = new System.Drawing.Size(75, 23);
             this.StudentsButt.TabIndex = 20;
@@ -371,6 +367,23 @@ namespace PL
             this.CreateButt.Visible = false;
             this.CreateButt.Click += new System.EventHandler(this.CreateButt_Click);
             // 
+            // EditNameButt
+            // 
+            this.EditNameButt.BackColor = System.Drawing.SystemColors.Control;
+            this.EditNameButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.EditNameButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EditNameButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EditNameButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditNameButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.EditNameButt.Location = new System.Drawing.Point(290, 11);
+            this.EditNameButt.Margin = new System.Windows.Forms.Padding(0);
+            this.EditNameButt.Name = "EditNameButt";
+            this.EditNameButt.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.EditNameButt.Size = new System.Drawing.Size(36, 34);
+            this.EditNameButt.TabIndex = 1;
+            this.EditNameButt.UseVisualStyleBackColor = false;
+            this.EditNameButt.Click += new System.EventHandler(this.EditNameButt_Click);
+            // 
             // FacultRed
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -394,6 +407,7 @@ namespace PL
             this.Controls.Add(this.label1);
             this.Controls.Add(this.EditNameButt);
             this.Controls.Add(this.NameBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FacultRed";
             this.Text = "FacultRed";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FacultRed_FormClosed);

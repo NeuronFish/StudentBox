@@ -29,6 +29,7 @@ namespace PL
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupRed));
             this.StudView = new System.Windows.Forms.DataGridView();
             this.StudNum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -116,11 +117,16 @@ namespace PL
             // 
             // EditNameButt
             // 
-            this.EditNameButt.Location = new System.Drawing.Point(293, 14);
+            this.EditNameButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.EditNameButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.EditNameButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EditNameButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.EditNameButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.EditNameButt.Location = new System.Drawing.Point(290, 11);
+            this.EditNameButt.Margin = new System.Windows.Forms.Padding(0);
             this.EditNameButt.Name = "EditNameButt";
-            this.EditNameButt.Size = new System.Drawing.Size(50, 29);
+            this.EditNameButt.Size = new System.Drawing.Size(36, 34);
             this.EditNameButt.TabIndex = 18;
-            this.EditNameButt.Text = "button1";
             this.EditNameButt.UseVisualStyleBackColor = true;
             this.EditNameButt.Click += new System.EventHandler(this.EditNameButt_Click);
             // 
@@ -156,11 +162,16 @@ namespace PL
             // 
             // ChangeCuratorButt
             // 
-            this.ChangeCuratorButt.Location = new System.Drawing.Point(738, 14);
+            this.ChangeCuratorButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.ChangeCuratorButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ChangeCuratorButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChangeCuratorButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCuratorButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.ChangeCuratorButt.Location = new System.Drawing.Point(734, 11);
+            this.ChangeCuratorButt.Margin = new System.Windows.Forms.Padding(0);
             this.ChangeCuratorButt.Name = "ChangeCuratorButt";
-            this.ChangeCuratorButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeCuratorButt.Size = new System.Drawing.Size(36, 34);
             this.ChangeCuratorButt.TabIndex = 34;
-            this.ChangeCuratorButt.Text = "button2";
             this.ChangeCuratorButt.UseVisualStyleBackColor = true;
             this.ChangeCuratorButt.Click += new System.EventHandler(this.ChangeCuratorButt_Click);
             // 
@@ -187,11 +198,16 @@ namespace PL
             // 
             // ChangeHeadmanButt
             // 
-            this.ChangeHeadmanButt.Location = new System.Drawing.Point(738, 52);
+            this.ChangeHeadmanButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.ChangeHeadmanButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ChangeHeadmanButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChangeHeadmanButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeHeadmanButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.ChangeHeadmanButt.Location = new System.Drawing.Point(734, 49);
+            this.ChangeHeadmanButt.Margin = new System.Windows.Forms.Padding(0);
             this.ChangeHeadmanButt.Name = "ChangeHeadmanButt";
-            this.ChangeHeadmanButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeHeadmanButt.Size = new System.Drawing.Size(36, 34);
             this.ChangeHeadmanButt.TabIndex = 37;
-            this.ChangeHeadmanButt.Text = "button2";
             this.ChangeHeadmanButt.UseVisualStyleBackColor = true;
             this.ChangeHeadmanButt.Click += new System.EventHandler(this.ChangeHeadmanButt_Click);
             // 
@@ -218,11 +234,16 @@ namespace PL
             // 
             // ChangeFacultButt
             // 
-            this.ChangeFacultButt.Location = new System.Drawing.Point(738, 89);
+            this.ChangeFacultButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.ChangeFacultButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ChangeFacultButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChangeFacultButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeFacultButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.ChangeFacultButt.Location = new System.Drawing.Point(734, 86);
+            this.ChangeFacultButt.Margin = new System.Windows.Forms.Padding(0);
             this.ChangeFacultButt.Name = "ChangeFacultButt";
-            this.ChangeFacultButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeFacultButt.Size = new System.Drawing.Size(36, 34);
             this.ChangeFacultButt.TabIndex = 40;
-            this.ChangeFacultButt.Text = "button2";
             this.ChangeFacultButt.UseVisualStyleBackColor = true;
             this.ChangeFacultButt.Click += new System.EventHandler(this.ChangeFacultButt_Click);
             // 
@@ -249,11 +270,16 @@ namespace PL
             // 
             // ChangeCourseButt
             // 
-            this.ChangeCourseButt.Location = new System.Drawing.Point(188, 52);
+            this.ChangeCourseButt.BackgroundImage = global::PL.Properties.Resources.RedIcon;
+            this.ChangeCourseButt.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.ChangeCourseButt.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ChangeCourseButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ChangeCourseButt.ForeColor = System.Drawing.SystemColors.Control;
+            this.ChangeCourseButt.Location = new System.Drawing.Point(185, 49);
+            this.ChangeCourseButt.Margin = new System.Windows.Forms.Padding(0);
             this.ChangeCourseButt.Name = "ChangeCourseButt";
-            this.ChangeCourseButt.Size = new System.Drawing.Size(50, 29);
+            this.ChangeCourseButt.Size = new System.Drawing.Size(36, 34);
             this.ChangeCourseButt.TabIndex = 43;
-            this.ChangeCourseButt.Text = "button2";
             this.ChangeCourseButt.UseVisualStyleBackColor = true;
             this.ChangeCourseButt.Click += new System.EventHandler(this.ChangeCourseButt_Click);
             // 
@@ -351,6 +377,7 @@ namespace PL
             this.Controls.Add(this.EditNameButt);
             this.Controls.Add(this.NameBox);
             this.Controls.Add(this.StudView);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GroupRed";
             this.Text = "GroupRed";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GroupRed_FormClosed);
